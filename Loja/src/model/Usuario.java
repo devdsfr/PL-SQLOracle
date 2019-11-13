@@ -10,31 +10,40 @@ package model;
  * @author thiago
  */
 public class Usuario {
-    private String usuario;
-    private int id;
-    private String senha;
+   private int Id_usuario;
+   private String Usuario;
+   private String Email;
 
-    public Usuario(String usuario, String senha) {
-        this.usuario = usuario;
-        this.senha = senha;
+    public Usuario(int Id_usuario, String Usuario, String Email) {
+        this.Id_usuario = Id_usuario;
+        this.Usuario = Usuario;
+        this.Email = Email;
+    }
+
+    public int getId_usuario() {
+        return Id_usuario;
+    }
+
+    public void setId_usuario(int Id_usuario) {
+        this.Id_usuario = Id_usuario;
     }
 
     public String getUsuario() {
-        return usuario;
+        return Usuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
-    
-    
+   
+   
     
 }

@@ -10,9 +10,40 @@ package model;
  * @author thiago
  */
 public class Produto {
-    private String NomeProduto;
-    private int IdProduto;
-    private String descricao;
-    private double valor;
-    private 
+    private int ID_PRODUTO;
+    private String Descricao;
+    private double Valor;
+
+    public Produto(int ID_PRODUTO, String Descricao, double Valor) {
+        this.ID_PRODUTO = ID_PRODUTO;
+        this.Descricao = Descricao;
+        this.Valor = Valor;
+    }
+
+    public int getID_PRODUTO() {
+        return ID_PRODUTO;
+    }
+
+    public void setID_PRODUTO(int ID_PRODUTO) {
+        this.ID_PRODUTO = ID_PRODUTO;
+    }
+
+    public String getDescricao() {
+        return Descricao;
+    }
+
+    public void setDescricao(String Descricao) {
+        this.Descricao = Descricao;
+    }
+
+    public double getValor() {
+        return Valor;
+    }
+
+    public void setValor(double Valor) {
+        this.Valor = Valor;
+    }
+    
+    
+    
 }

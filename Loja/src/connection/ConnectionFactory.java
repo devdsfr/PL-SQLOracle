@@ -3,74 +3,101 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package connection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-
-
-public class ConnectionFactory {
-    
+ /*   
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/LOJA";
     private static final String USER = "root";
     private static final String PASS = "Thiago1990@";
     
-    public static Connection getConnection(){
-       
-        try {
-           
-            Class.forName(DRIVER);
-            
-            return DriverManager.getConnection(URL, USER, PASS);
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-          
-            throw new RuntimeException("Erro na conexão" , ex);
-        }
-    }
-    
-    public static void closeConnection (Connection con){
-        
-        if (con !=null) {
-            
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro:" +ex);
-                }
-                }
-            }
-    
-        public static void closeConnection (Connection con, PreparedStatement stmt){
-        
-        if (stmt !=null) {
-            
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro:" +ex);
-        }
-    }
-        closeConnection(con);
-}
+ */    
 
- public static void closeConnection (Connection con, PreparedStatement stmt, ResultSet ra){
+package connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
+public class ConnectionFactory {
+    private Connection connection;
+    private ResultSet resultSet;
+    private Statement statement;
+    private String servidor = "localhost";
+    private String nomeDoBanco = "LOJA";
+    private String url = "jdbc:mysql://";
+    private String porta = "3366";
+    private String usuario ="root" ;
+    private String senha = "1234567";
+   
+    
+    public ConnectionFactory(){
         
-        if (ra !=null) {
+    }
+    
+    public Connection conectar(){
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            url = url + servidor + "/" + nomeDoBanco;
+            setConnection((Connection)DriverManager.getConnection(url, usuario, senha));
+        } catch (ClassNotFoundException | InstantiationException| IllegalAccessException |
+                SQLException e) {
+            System.err.print(e);
+        }
+        return getConnection();
             
-                try {
-                    ra.close();
-                } catch (SQLException ex) {
-                    System.err.println("Erro:" +ex);
+    }
+    
+    public void fecharConexao(){
+        try {
+            getResultSet().close();
+            getStatement().close();
+            getConnection().close();
+        } catch (SQLException e) {
+             System.err.println(e);
         }
     }
-        closeConnection(con, stmt);
+    
+    public int insertSQL(String sql){
+        int status = 0;
+        try {
+            setStatement(getConnection().createStatement());
+            getStatement().executeUpdate(sql);            
+            
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return 1;
+        
+    }
+    
+    public Connection getConnection(){
+        return this.connection;
+    }
+    public void setConnection(Connection connection){
+        this.connection = connection;
+    }
+
+    public ResultSet getResultSet() {
+        return resultSet;
+    }
+
+    public void setResultSet(ResultSet resultSet) {
+        this.resultSet = resultSet;
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public void setStatement(Statement statement) {
+        this.statement = statement;
+    }
+    
+    
  }
-}
 
 
     

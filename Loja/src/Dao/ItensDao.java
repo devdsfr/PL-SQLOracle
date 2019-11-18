@@ -5,10 +5,18 @@
  */
 package Dao;
 
-/**
- *
- * @author thiago
- */
+import java.sql.Connection;
+import connection.ConnectionFactory;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Itens;
 public class ItensDao {
+     private Connection con = null;
+
+    public ItensDao() {
+        con = ConnectionFactory.getConnection();
     
 }

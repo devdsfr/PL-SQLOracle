@@ -14,9 +14,9 @@ public class Cliente {
     private int Id_vendas;
     private String Nome_ou_razao_social;
     private String SobreNome_ou_NomeFantasia;
-    private int Cpf_Cnpj;
+    private String Cpf_Cnpj;
 
-    public Cliente(int Id_cliente, int Id_vendas, String Nome_ou_razao_social, String SobreNome_ou_NomeFantasia, int Cpf_Cnpj) {
+    public Cliente(int Id_cliente, int Id_vendas, String Nome_ou_razao_social, String SobreNome_ou_NomeFantasia, String Cpf_Cnpj) {
        this.Id_cliente = Id_cliente;
         this.Id_vendas = Id_vendas;
         this.Nome_ou_razao_social = Nome_ou_razao_social;
@@ -58,11 +58,11 @@ public class Cliente {
         this.SobreNome_ou_NomeFantasia = SobreNome_ou_NomeFantasia;
     }
 
-    public int getCpf_Cnpj() {
+    public String getCpf_Cnpj() {
         return Cpf_Cnpj;
     }
 
-    public void setCpf_Cnpj(int Cpf_Cnpj) {
+    public void setCpf_Cnpj(String Cpf_Cnpj) {
         this.Cpf_Cnpj = Cpf_Cnpj;
     }
     

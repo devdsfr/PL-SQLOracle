@@ -25,15 +25,16 @@ public class VendasDao {
     
     public boolean save(Vendas vendas){
         
-        String sql = "INSERT INTO VENDAS (DATA_VENDAS, TOTAL_BRUTO, DESCONTO, TOTAL_LIQUIDO) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO VENDAS (DATA_VENDAS, TOTAL_BRUTO, DESCONTO, TOTAL_LIQUIDO, CPF_CNPJ) VALUES (?, ?, ?, ?, ?)";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setDouble(1, vendas.getData_vendas());
+            stmt.setDate(1, vendas.getData_vendas());
             stmt.setDouble(2, vendas.getTotal_Bruto());
            stmt.setDouble(3, vendas.getDesconto());
             stmt.setDouble(4, vendas.getTotal_Liquido());
+            stmt.setString(5, vendas.getCPF_CNPJ());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;
@@ -62,7 +63,7 @@ public class VendasDao {
             while (rs.next()){
                 
                 Vendas vendas = new Vendas();
-                vendas.setData_vendas(rs.getDouble("VENDAS"));
+                vendas.setData_vendas(rs.getDate("VENDAS"));
                 vendas.add(vendas);
             }
         } catch (SQLException ex) {

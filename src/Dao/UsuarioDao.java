@@ -33,7 +33,7 @@ public boolean save(Usuario usuario){
             stmt = con.prepareStatement(sql);
             stmt.setString(1, usuario.getUsuario());
             stmt.setString(2, usuario.getEmail());
-            stmt.setInt(3, usuario.getCPF_CNPJ());
+            stmt.setString(3, usuario.getCPF_CNPJ());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;

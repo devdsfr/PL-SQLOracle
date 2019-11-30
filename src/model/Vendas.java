@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author thiago
@@ -12,19 +14,21 @@ package model;
 public class Vendas {
     
     private int Id_Vendas;
-    private Double data_vendas;
+    private Date data_vendas;
     private int Id_produto;
     private double Total_Bruto;
     private double Desconto;
     private double Total_Liquido;
+    private String CPF_CNPJ;
 
-    public Vendas(int Id_Vendas, Double data_vendas, int Id_produto, double Total_Bruto, double Desconto, double Total_Liquido) {
+    public Vendas(int Id_Vendas, Date data_vendas, int Id_produto, double Total_Bruto, double Desconto, double Total_Liquido, String CPF_CNPJ) {
         this.Id_Vendas = Id_Vendas;
         this.data_vendas = data_vendas;
         this.Id_produto = Id_produto;
         this.Total_Bruto = Total_Bruto;
         this.Desconto = Desconto;
         this.Total_Liquido = Total_Liquido;
+        this.CPF_CNPJ = CPF_CNPJ;
     }
 
     public Vendas() {
@@ -42,11 +46,11 @@ public class Vendas {
         this.Id_Vendas = Id_Vendas;
     }
 
-    public Double getData_vendas() {
+    public Date getData_vendas() {
         return data_vendas;
     }
 
-    public void setData_vendas(Double data_vendas) {
+    public void setData_vendas(Date data_vendas) {
         this.data_vendas = data_vendas;
     }
 
@@ -80,6 +84,14 @@ public class Vendas {
 
     public void setTotal_Liquido(double Total_Liquido) {
         this.Total_Liquido = Total_Liquido;
+    }
+
+    public String getCPF_CNPJ() {
+        return CPF_CNPJ;
+    }
+
+    public void setCPF_CNPJ(String CPF_CNPJ) {
+        this.CPF_CNPJ = CPF_CNPJ;
     }
 
     public void add(Vendas vendas) {

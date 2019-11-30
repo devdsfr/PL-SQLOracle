@@ -5,10 +5,9 @@
  */
 package view;
 
-/**
- *
- * @author thiago
- */
+import Dao.UsuarioDao;
+import model.Usuario;
+
 public class Usuarioo extends javax.swing.JFrame {
 
     /**
@@ -29,25 +28,25 @@ public class Usuarioo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        edtSalvar = new javax.swing.JButton();
+        edtaEditar = new javax.swing.JButton();
+        edtConsultar = new javax.swing.JButton();
+        edtSair = new javax.swing.JButton();
+        edtExcluir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        edtCodigo = new javax.swing.JTextField();
+        edtEmail = new javax.swing.JTextField();
+        edtNome = new javax.swing.JTextField();
         edtCPF = new javax.swing.JRadioButton();
         edtCNPJ = new javax.swing.JRadioButton();
         edtCpfCnpj = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Arial", 1, 14))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -62,34 +61,39 @@ public class Usuarioo extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opções", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-salvar.png"))); // NOI18N
-        jButton1.setText("SALVAR");
-
-        jButton2.setText("EDITAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        edtSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-salvar.png"))); // NOI18N
+        edtSalvar.setText("SALVAR");
+        edtSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                edtSalvarActionPerformed(evt);
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
-        jButton3.setText("CONSULTAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        edtaEditar.setText("EDITAR");
+        edtaEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                edtaEditarActionPerformed(evt);
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/sair-menu-2.png"))); // NOI18N
-        jButton4.setText("SAIR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        edtConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
+        edtConsultar.setText("CONSULTAR");
+        edtConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                edtConsultarActionPerformed(evt);
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-excluir.png"))); // NOI18N
-        jButton5.setText("EXCLUIR");
+        edtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/sair-menu-2.png"))); // NOI18N
+        edtSair.setText("SAIR");
+        edtSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtSairActionPerformed(evt);
+            }
+        });
+
+        edtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-excluir.png"))); // NOI18N
+        edtExcluir.setText("EXCLUIR");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,27 +102,27 @@ public class Usuarioo extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(edtConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtaEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(37, 37, 37))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jButton1)
+                .addComponent(edtSalvar)
                 .addGap(39, 39, 39)
-                .addComponent(jButton2)
+                .addComponent(edtaEditar)
                 .addGap(37, 37, 37)
-                .addComponent(jButton3)
+                .addComponent(edtConsultar)
                 .addGap(35, 35, 35)
-                .addComponent(jButton5)
+                .addComponent(edtExcluir)
                 .addGap(33, 33, 33)
-                .addComponent(jButton4)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addComponent(edtSair)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Codigo");
@@ -169,9 +173,9 @@ public class Usuarioo extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(184, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -180,16 +184,16 @@ public class Usuarioo extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtCNPJ)
@@ -224,6 +228,7 @@ public class Usuarioo extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void edtCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCNPJActionPerformed
@@ -234,17 +239,28 @@ public class Usuarioo extends javax.swing.JFrame {
         //MaskFormatter edtCPF new MaskFormatter ("###,###,###-##");
     }//GEN-LAST:event_edtCpfCnpjActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_edtConsultarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void edtaEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtaEditarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_edtaEditarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void edtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_edtSairActionPerformed
+
+    private void edtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSalvarActionPerformed
+        // Salvar dados usuario.
+        Usuario usuario = new Usuario();
+        UsuarioDao usuarios = new UsuarioDao();
+        
+        usuario.setUsuario(edtNome.getText());
+        usuario.setEmail(edtEmail.getText());
+        usuario.setCPF_CNPJ(edtCpfCnpj.getText());
+        usuarios.save(usuario);
+    }//GEN-LAST:event_edtSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,20 +300,20 @@ public class Usuarioo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton edtCNPJ;
     private javax.swing.JRadioButton edtCPF;
+    private javax.swing.JTextField edtCodigo;
+    private javax.swing.JButton edtConsultar;
     private javax.swing.JFormattedTextField edtCpfCnpj;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JTextField edtEmail;
+    private javax.swing.JButton edtExcluir;
+    private javax.swing.JTextField edtNome;
+    private javax.swing.JButton edtSair;
+    private javax.swing.JButton edtSalvar;
+    private javax.swing.JButton edtaEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

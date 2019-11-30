@@ -13,17 +13,18 @@ public class Usuario {
    private int Id_usuario;
    private String Usuario;
    private String Email;
-   private int CPF_CNPJ;
+   private String CPF_CNPJ;
+   
+   public Usuario(){
+       
+   }
 
-    public Usuario(int Id_usuario, String Usuario, String Email, int CPF_CNPJ) {
+    public Usuario(int Id_usuario, String Usuario, String Email, String CPF_CNPJ) {
         this.Id_usuario = Id_usuario;
         this.Usuario = Usuario;
         this.Email = Email;
         this.CPF_CNPJ = CPF_CNPJ;
-    }
-
-    public Usuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
     }
 
     public int getId_usuario() {
@@ -50,14 +51,15 @@ public class Usuario {
         this.Email = Email;
     }
 
-    public int getCPF_CNPJ() {
+    public String getCPF_CNPJ() {
         return CPF_CNPJ;
     }
 
-    public void setCPF_CNPJ(int CPF_CNPJ) {
+    public void setCPF_CNPJ(String CPF_CNPJ) {
         this.CPF_CNPJ = CPF_CNPJ;
     }
-   
-   
+   public void add(Usuario usuario){
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
+}
 }

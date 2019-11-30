@@ -32,7 +32,7 @@ public class ClienteDao {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, cliente.getNome_ou_razao_social());
             stmt.setString(2, cliente.getSobreNome_ou_NomeFantasia());
-            stmt.setInt(3, cliente.getCpf_Cnpj());
+            stmt.setString(3, cliente.getCpf_Cnpj());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;
@@ -80,7 +80,7 @@ public class ClienteDao {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, cliente.getNome_ou_razao_social());
             stmt.setString(2, cliente.getSobreNome_ou_NomeFantasia());
-            stmt.setInt(2, cliente.getCpf_Cnpj());
+            stmt.setString(2, cliente.getCpf_Cnpj());
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {

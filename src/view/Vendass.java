@@ -6,6 +6,7 @@
 package view;
 
 import Dao.VendasDao;
+import java.sql.Date;
 import model.Vendas;
 public class Vendass extends javax.swing.JFrame {
 
@@ -241,7 +242,7 @@ public class Vendass extends javax.swing.JFrame {
         venda.setTotal_Bruto(Double.parseDouble(edtTotalBruto.getText()));
         venda.setDesconto(Double.parseDouble(edtDesconto.getText()));
         venda.setTotal_Liquido(Double.parseDouble(edtTotalLiquido.getText()));
-        venda.setData_vendas(Double.parseDouble(edtDataVenda.getText()));
+        venda.setData_vendas(Date.valueOf(edtDataVenda.getText()));
         
         vendas.save(venda);
         

@@ -251,14 +251,14 @@ public class TelaCliente extends javax.swing.JFrame {
 
     private void edtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSalvarActionPerformed
         // Salvar os dados do produto.
-        Cliente clie = new Cliente();
-        ClienteDao cliente = new ClienteDao();
+        Cliente cliente = new Cliente();
+        ClienteDao clientes = new ClienteDao();
         
         //clie.setId_cliente(edtCodigoCliente.getX());
-        clie.setNome_ou_razao_social(edtRazaoSocial.getText());
-        clie.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
-        clie.setCpf_Cnpj(edtCpfCnpj.getX());
-        cliente.save(clie);
+        cliente.setNome_ou_razao_social(edtRazaoSocial.getText());
+        cliente.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
+        cliente.setCpf_Cnpj(edtCpfCnpj.getText());
+        clientes.save(cliente);
     }//GEN-LAST:event_edtSalvarActionPerformed
 
     private void edtCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodigoClienteActionPerformed

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Vendas;
 public class VendasDao {
     
@@ -29,11 +30,12 @@ public class VendasDao {
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, vendas.getData_vendas());
+            stmt.setDouble(1, vendas.getData_vendas());
             stmt.setDouble(2, vendas.getTotal_Bruto());
            stmt.setDouble(3, vendas.getDesconto());
             stmt.setDouble(4, vendas.getTotal_Liquido());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;
         } catch (SQLException ex) {
             System.err.println("Erro" +ex);
@@ -60,7 +62,7 @@ public class VendasDao {
             while (rs.next()){
                 
                 Vendas vendas = new Vendas();
-                vendas.setData_vendas(rs.getInt("VENDAS"));
+                vendas.setData_vendas(rs.getDouble("VENDAS"));
                 vendas.add(vendas);
             }
         } catch (SQLException ex) {

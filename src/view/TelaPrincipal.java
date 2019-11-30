@@ -142,7 +142,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new Vendas().setVisible(true);
+        new Vendass().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 

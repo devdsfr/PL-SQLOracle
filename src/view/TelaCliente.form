@@ -259,7 +259,7 @@
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="edtConsultar" alignment="0" max="32767" attributes="0"/>
-                              <Component id="edtAtualizar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="edtExcluir" alignment="0" max="32767" attributes="0"/>
                               <Component id="edtSalvar" alignment="0" max="32767" attributes="0"/>
                               <Component id="edtCancelar" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -277,7 +277,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="edtSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="edtAtualizar" min="-2" max="-2" attributes="0"/>
+                  <Component id="edtExcluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="edtConsultar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -304,7 +304,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCancelarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="edtAtualizar">
+        <Component class="javax.swing.JButton" name="edtExcluir">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/incons/btn-excluir.png"/>
@@ -312,7 +312,7 @@
             <Property name="text" type="java.lang.String" value="EXCLUIR"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtAtualizarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtExcluirActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="edtSalvar">

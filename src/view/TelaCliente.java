@@ -45,7 +45,7 @@ public class TelaCliente extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         edtCancelar = new javax.swing.JButton();
-        edtAtualizar = new javax.swing.JButton();
+        edtExcluir = new javax.swing.JButton();
         edtSalvar = new javax.swing.JButton();
         edtConsultar = new javax.swing.JButton();
 
@@ -165,11 +165,11 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
-        edtAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-excluir.png"))); // NOI18N
-        edtAtualizar.setText("EXCLUIR");
-        edtAtualizar.addActionListener(new java.awt.event.ActionListener() {
+        edtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-excluir.png"))); // NOI18N
+        edtExcluir.setText("EXCLUIR");
+        edtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtAtualizarActionPerformed(evt);
+                edtExcluirActionPerformed(evt);
             }
         });
 
@@ -196,7 +196,7 @@ public class TelaCliente extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(edtConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edtAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(edtCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -209,7 +209,7 @@ public class TelaCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(edtSalvar)
                 .addGap(18, 18, 18)
-                .addComponent(edtAtualizar)
+                .addComponent(edtExcluir)
                 .addGap(18, 18, 18)
                 .addComponent(edtConsultar)
                 .addGap(18, 18, 18)
@@ -253,7 +253,8 @@ public class TelaCliente extends javax.swing.JFrame {
         // Salvar os dados do produto.
         Cliente clie = new Cliente();
         ClienteDao cliente = new ClienteDao();
-        clie.setId_cliente(edtCodigoCliente.getX());
+        
+        //clie.setId_cliente(edtCodigoCliente.getX());
         clie.setNome_ou_razao_social(edtRazaoSocial.getText());
         clie.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
         clie.setCpf_Cnpj(edtCpfCnpj.getX());
@@ -264,9 +265,9 @@ public class TelaCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtCodigoClienteActionPerformed
 
-    private void edtAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtAtualizarActionPerformed
+    private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edtAtualizarActionPerformed
+    }//GEN-LAST:event_edtExcluirActionPerformed
 
     private void edtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCancelarActionPerformed
          this.dispose();
@@ -316,13 +317,13 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.JButton edtAtualizar;
     private javax.swing.JRadioButton edtCNPJ;
     private javax.swing.JRadioButton edtCPF;
     private javax.swing.JButton edtCancelar;
     private javax.swing.JTextField edtCodigoCliente;
     private javax.swing.JButton edtConsultar;
     private javax.swing.JFormattedTextField edtCpfCnpj;
+    private javax.swing.JButton edtExcluir;
     private javax.swing.JTextField edtNomeFantasia;
     private javax.swing.JTextField edtRazaoSocial;
     private javax.swing.JButton edtSalvar;

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Usuario;
 
 
@@ -25,14 +26,16 @@ public class UsuarioDao {
 }
 public boolean save(Usuario usuario){
              
-  String sql = "INSERT INTO USUARIO (NOME_OU_RAZAO_SOCIAL, SOBRENOME_NOME_FANTASIA, CPF_CNPJ) VALUES (?)";
+  String sql = "INSERT INTO USUARIO (NOME, EMAIL, CPF_CNPJ) VALUES (?, ?, ?)";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, usuario.getUsuario());
             stmt.setString(2, usuario.getEmail());
+            stmt.setInt(3, usuario.getCPF_CNPJ());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;
         } catch (SQLException ex) {
             System.err.println("Erro" +ex);

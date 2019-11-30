@@ -12,13 +12,13 @@ package model;
 public class Vendas {
     
     private int Id_Vendas;
-    private int data_vendas;
+    private Double data_vendas;
     private int Id_produto;
     private double Total_Bruto;
     private double Desconto;
     private double Total_Liquido;
 
-    public Vendas(int Id_Vendas, int data_vendas, int Id_produto, double Total_Bruto, double Desconto, double Total_Liquido) {
+    public Vendas(int Id_Vendas, Double data_vendas, int Id_produto, double Total_Bruto, double Desconto, double Total_Liquido) {
         this.Id_Vendas = Id_Vendas;
         this.data_vendas = data_vendas;
         this.Id_produto = Id_produto;
@@ -28,7 +28,10 @@ public class Vendas {
     }
 
     public Vendas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+    }
+    public void Vendas(){
+        
     }
 
     public int getId_Vendas() {
@@ -39,11 +42,11 @@ public class Vendas {
         this.Id_Vendas = Id_Vendas;
     }
 
-    public int getData_vendas() {
+    public Double getData_vendas() {
         return data_vendas;
     }
 
-    public void setData_vendas(int data_vendas) {
+    public void setData_vendas(Double data_vendas) {
         this.data_vendas = data_vendas;
     }
 
@@ -80,7 +83,11 @@ public class Vendas {
     }
 
     public void add(Vendas vendas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+    }
+
+    public void setVisible(boolean b) {
+       
     }
     
     

@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/thiago/loja/Loja/src/view/Produtoo.java</file>
-            <file>file:/home/thiago/loja/Loja/src/Dao/ProdutoDao.java</file>
-            <file>file:/home/thiago/loja/Loja/src/model/ProdutoTableModel.java</file>
-            <file>file:/home/thiago/loja/Loja/src/view/Login.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/Dao/ProdutoDao.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/view/Usuarioo.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/Dao/UsuarioDao.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/view/TelaCliente.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/model/Usuario.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/model/Produto.java</file>
+            <file>file:/home/thiago/NetBeansProjects/ProjetoLoja/src/view/Produtoo.java</file>
         </group>
     </open-files>
 </project-private>

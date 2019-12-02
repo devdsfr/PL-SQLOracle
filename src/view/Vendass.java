@@ -5,10 +5,18 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import javax.swing.text.MaskFormatter;
 import Dao.VendasDao;
+import connection.ConexaoBD;
 import java.sql.Date;
 import model.Vendas;
+
 public class Vendass extends javax.swing.JFrame {
+    ConexaoBD conex = new ConexaoBD();
+    Vendas vd = new Vendas();
+    VendasDao dao = new VendasDao();
 
     /**
      * Creates new form Vendas
@@ -237,14 +245,22 @@ public class Vendass extends javax.swing.JFrame {
     private void edtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSalvarActionPerformed
         // Salvar od dados do Cliente.
         Vendas venda = new Vendas();
-        VendasDao vendas= new VendasDao();
+        VendasDao vendas = new VendasDao();
         
         venda.setTotal_Bruto(Double.parseDouble(edtTotalBruto.getText()));
         venda.setDesconto(Double.parseDouble(edtDesconto.getText()));
         venda.setTotal_Liquido(Double.parseDouble(edtTotalLiquido.getText()));
         venda.setData_vendas(Date.valueOf(edtDataVenda.getText()));
-        
         vendas.save(venda);
+        
+        //Metodo limpar tela.
+        edtCodigoCliente.setText("");
+        edtCodigoVenda.setText("");
+        edtCodigoProduto.setText("");
+        edtTotalBruto.setText("");
+        edtDesconto.setText("");
+        edtTotalLiquido.setText("");
+        edtDataVenda.setText("");
         
     }//GEN-LAST:event_edtSalvarActionPerformed
 

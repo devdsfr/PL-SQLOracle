@@ -8,8 +8,15 @@ package view;
 import javax.swing.text.MaskFormatter;
 import model.Cliente;
 import Dao.ClienteDao;
+import connection.ConexaoBD;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 public class TelaCliente extends javax.swing.JFrame {
+    ConexaoBD conex = new ConexaoBD();
+    Cliente cli = new Cliente();
+    ClienteDao dao = new ClienteDao();
+    int resposta = 0;
 
     /**
      * Creates new form Cliente
@@ -254,11 +261,16 @@ public class TelaCliente extends javax.swing.JFrame {
         Cliente cliente = new Cliente();
         ClienteDao clientes = new ClienteDao();
         
-        //clie.setId_cliente(edtCodigoCliente.getX());
         cliente.setNome_ou_razao_social(edtRazaoSocial.getText());
         cliente.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
         cliente.setCpf_Cnpj(edtCpfCnpj.getText());
         clientes.save(cliente);
+        
+        //Metodo Limpar tela.
+        edtCodigoCliente.setText("");
+        edtRazaoSocial.setText("");
+        edtNomeFantasia.setText("");
+        edtCpfCnpj.setText("");
     }//GEN-LAST:event_edtSalvarActionPerformed
 
     private void edtCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodigoClienteActionPerformed
@@ -266,7 +278,18 @@ public class TelaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_edtCodigoClienteActionPerformed
 
     private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
-        // TODO add your handling code here:
+        // Metodo excluir cliente:
+         resposta = JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir ?");
+       if (resposta == JOptionPane.YES_OPTION) {
+      cli.setId_cliente(Integer.parseInt(edtCodigoCliente.getText()));
+      dao.delete(cli);
+      
+      //Metodo limpar campos.
+      edtCpfCnpj.setText("");
+      edtNomeFantasia.setText("");
+      edtRazaoSocial.setText("");
+      edtCodigoCliente.setText("");
+       }
     }//GEN-LAST:event_edtExcluirActionPerformed
 
     private void edtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCancelarActionPerformed

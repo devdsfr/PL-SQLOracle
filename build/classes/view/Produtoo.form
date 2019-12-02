@@ -99,8 +99,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="edtConsultar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="edtPesquisa" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="edtCodigo" min="-2" pref="208" max="-2" attributes="0"/>
@@ -144,7 +149,12 @@
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="edtTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="91" max="32767" attributes="0"/>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="edtConsultar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="233" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -166,7 +176,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="edtListaDeProdutos">
+            <Component class="javax.swing.JTable" name="edtListaProduto">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
@@ -228,6 +238,19 @@
         </Component>
         <Component class="javax.swing.JTextField" name="edtTotal">
         </Component>
+        <Component class="javax.swing.JButton" name="edtConsultar">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/incons/loupe.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Consultar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtConsultarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="edtPesquisa">
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel3">
@@ -247,9 +270,8 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="41" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="edtPesquisar" max="32767" attributes="0"/>
-                      <Component id="edtIncluir" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edtExcluir" alignment="0" max="32767" attributes="0"/>
+                      <Component id="edtEditar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="edtExcluir" alignment="0" pref="133" max="32767" attributes="0"/>
                       <Component id="edtSalvar" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtCancelar" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -265,10 +287,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="edtExcluir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="edtIncluir" min="-2" max="-2" attributes="0"/>
+                  <Component id="edtEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="edtPesquisar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="edtCancelar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -287,12 +307,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtSalvarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="edtIncluir">
+        <Component class="javax.swing.JButton" name="edtEditar">
           <Properties>
             <Property name="text" type="java.lang.String" value="INCLUIR"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtIncluirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtEditarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="edtExcluir">
@@ -303,6 +323,7 @@
             <Property name="text" type="java.lang.String" value="EXCLUIR"/>
           </Properties>
           <Events>
+            <EventHandler event="componentRemoved" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="edtExcluirComponentRemoved"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtExcluirActionPerformed"/>
           </Events>
         </Component>
@@ -315,17 +336,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCancelarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="edtPesquisar">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/incons/loupe.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="CONSULTAR"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtPesquisarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

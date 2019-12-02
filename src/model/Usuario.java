@@ -10,7 +10,7 @@ package model;
  * @author thiago
  */
 public class Usuario {
-   private int Id_usuario;
+   private int ID_USUARIO;
    private String Usuario;
    private String Email;
    private String CPF_CNPJ;
@@ -18,21 +18,24 @@ public class Usuario {
    public Usuario(){
        
    }
+   public void usuario(){
+       
+   }
 
-    public Usuario(int Id_usuario, String Usuario, String Email, String CPF_CNPJ) {
-        this.Id_usuario = Id_usuario;
+    public Usuario(int Id_USUARIO, String Usuario, String Email, String CPF_CNPJ) {
+        this.ID_USUARIO = ID_USUARIO;
         this.Usuario = Usuario;
         this.Email = Email;
         this.CPF_CNPJ = CPF_CNPJ;
    
     }
 
-    public int getId_usuario() {
-        return Id_usuario;
+    public int getID_USUARIO() {
+        return ID_USUARIO;
     }
 
-    public void setId_usuario(int Id_usuario) {
-        this.Id_usuario = Id_usuario;
+    public void setID_USUARIO(int Id_usuario) {
+        this.ID_USUARIO = ID_USUARIO;
     }
 
     public String getUsuario() {

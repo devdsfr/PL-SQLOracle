@@ -5,15 +5,17 @@
  */
 package view;
 
-/**
- *
- * @author dsfr
- */
+import Dao.ItensDao;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import connection.ConexaoBD;
+import model.Itens;
 public class ItensDeVenda extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmItensVendas
-     */
+    ConexaoBD conex = new ConexaoBD();
+    Itens it = new Itens();
+    ItensDao dao = new ItensDao();
+    int resposta =0;
     public ItensDeVenda() {
         initComponents();
     }
@@ -29,23 +31,23 @@ public class ItensDeVenda extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        edtCodigo = new javax.swing.JTextField();
+        edtCodigoVenda = new javax.swing.JTextField();
+        edtQTDVendida = new javax.swing.JTextField();
+        edtDesconItem = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        edtDescProducao = new javax.swing.JTextArea();
+        edtValorItem = new javax.swing.JTextField();
+        edtTotalItens = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        edtCodProduto = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         edtSalvar = new javax.swing.JButton();
         etdCancelar = new javax.swing.JButton();
@@ -67,9 +69,9 @@ public class ItensDeVenda extends javax.swing.JFrame {
 
         jLabel6.setText("Descriçao do Produto:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        edtDescProducao.setColumns(20);
+        edtDescProducao.setRows(5);
+        jScrollPane1.setViewportView(edtDescProducao);
 
         jLabel7.setText("Valor do Item:");
 
@@ -98,14 +100,14 @@ public class ItensDeVenda extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(edtCodProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(edtQTDVendida, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edtCodigoVenda, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edtCodigo, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(edtTotalItens, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                .addComponent(edtDesconItem, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edtValorItem, javax.swing.GroupLayout.Alignment.LEADING)))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -113,20 +115,20 @@ public class ItensDeVenda extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCodigoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtQTDVendida, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -137,15 +139,15 @@ public class ItensDeVenda extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtValorItem, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtDesconItem, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtTotalItens, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19))
         );
 
@@ -172,6 +174,11 @@ public class ItensDeVenda extends javax.swing.JFrame {
 
         edtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-excluir.png"))); // NOI18N
         edtExcluir.setText("Excluir");
+        edtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -252,6 +259,26 @@ public class ItensDeVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtSalvarActionPerformed
 
+    private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
+         //Metodo excluir vendas.
+      resposta = JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir ?");
+       if (resposta == JOptionPane.YES_OPTION) {
+      it.setId_itens(Integer.parseInt(edtCodigo.getText()));
+      dao.delete(it);
+      
+      //Metodo Limpar campo
+      edtCodProduto.setText("");
+      edtCodigo.setText("");
+      edtCodigoVenda.setText("");
+      edtConsultar.setText("");
+      edtDescProducao.setText("");
+      edtDesconItem.setText("");
+      edtQTDVendida.setText("");
+      edtTotalItens.setText("");
+      edtValorItem.setText("");
+       }
+    }//GEN-LAST:event_edtExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,9 +316,17 @@ public class ItensDeVenda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField edtCodProduto;
+    private javax.swing.JTextField edtCodigo;
+    private javax.swing.JTextField edtCodigoVenda;
     private javax.swing.JButton edtConsultar;
+    private javax.swing.JTextArea edtDescProducao;
+    private javax.swing.JTextField edtDesconItem;
     private javax.swing.JButton edtExcluir;
+    private javax.swing.JTextField edtQTDVendida;
     private javax.swing.JButton edtSalvar;
+    private javax.swing.JTextField edtTotalItens;
+    private javax.swing.JTextField edtValorItem;
     private javax.swing.JButton etdCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -306,13 +341,5 @@ public class ItensDeVenda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 }

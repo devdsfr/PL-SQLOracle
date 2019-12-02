@@ -6,7 +6,7 @@
 package model.dao;
 
 import java.sql.SQLException;
-import model.Produto;
+import model.BensProduto;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
@@ -20,7 +20,7 @@ public class ProdutoDao {
     //@Ignore
     public void inserir() {
 
-        Produto produto = new Produto("Roupas");
+        BensProduto produto = new BensProduto("Roupas");
         ProdutoDao dao = new ProdutoDao();
 
         if (dao.save(produto)) {
@@ -34,7 +34,7 @@ public class ProdutoDao {
     @Ignore
     public void atualizar() {
 
-        Produto pro = new Produto("Roupa");
+        BensProduto pro = new BensProduto("Roupa");
         pro.setDescricao();
         ProdutoDao dao = new ProdutoDao();
 
@@ -49,7 +49,7 @@ public class ProdutoDao {
     @Ignore
     public void deletar() {
 
-        Produto pro = new Produto("Roupa");
+        BensProduto pro = new BensProduto("Roupa");
         pro.setID_PRODUTO(1);
 
         ProdutoDao dao = new ProdutoDao();
@@ -66,12 +66,12 @@ public class ProdutoDao {
     public void listar() throws SQLException {
         ProdutoDao dao = new ProdutoDao();
 
-        for (Produto p : dao.findAll()) {
+        for (BensProduto p : dao.findAll()) {
             System.out.println("Descrição: " + p.getDescricao());
         }
     }
 
-    private boolean save(Produto produto) {
+    private boolean save(BensProduto produto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -79,15 +79,15 @@ public class ProdutoDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private boolean update(Produto pro) {
+    private boolean update(BensProduto pro) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private boolean delete(Produto pro) {
+    private boolean delete(BensProduto pro) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private Iterable<Produto> findAll() {
+    private Iterable<BensProduto> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

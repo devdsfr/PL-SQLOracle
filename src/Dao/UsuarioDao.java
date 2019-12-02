@@ -5,6 +5,7 @@
  */
 package Dao;
 
+import connection.ConexaoBD;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +18,9 @@ import model.Usuario;
 
 
 public class UsuarioDao {
-    
-      private Connection con = null;
+    ConexaoBD conex = new ConexaoBD();
+    Usuario us = new Usuario();
+    private Connection con = null;
        
        public UsuarioDao (){
            con = ConnectionFactory.getConnection();
@@ -92,20 +94,21 @@ public boolean save(Usuario usuario){
     }
     
 
-       public boolean delete(Usuario usuario){
+       public void delete(Usuario usu){
         
-        String sql = "DELETE FROM USUARIO WHERE id =  ?";
+        String sql = "DELETE FROM USUARIO WHERE ID_USUARIO IN (?)";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             
-            stmt.setInt(1, usuario.getId_usuario());
+            stmt.setInt(1, usu.getID_USUARIO());
             stmt.executeUpdate();
-            return true;
+             JOptionPane.showMessageDialog(null ,"Usuario excluido com sucesso.");
+            
         } catch (SQLException ex) {
             System.err.println("Erro" +ex);
-            return false;
+            
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

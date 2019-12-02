@@ -4,11 +4,21 @@
  * and open the template in the editor.
  */
 package view;
-
+import java.sql.SQLException;
+import connection.ConnectionFactory;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
 import Dao.UsuarioDao;
+import connection.ConexaoBD;
 import model.Usuario;
+import java.sql.Connection;
 
 public class Usuarioo extends javax.swing.JFrame {
+    ConexaoBD conex = new ConexaoBD();
+    Usuario us = new Usuario();
+    UsuarioDao dao = new UsuarioDao();
+    int resposta = 0;
 
     /**
      * Creates new form Usuarioo
@@ -94,6 +104,11 @@ public class Usuarioo extends javax.swing.JFrame {
 
         edtExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/btn-excluir.png"))); // NOI18N
         edtExcluir.setText("EXCLUIR");
+        edtExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -260,7 +275,29 @@ public class Usuarioo extends javax.swing.JFrame {
         usuario.setEmail(edtEmail.getText());
         usuario.setCPF_CNPJ(edtCpfCnpj.getText());
         usuarios.save(usuario);
+        //Metodo Limpar tela.
+        edtCodigo.setText("");
+        edtNome.setText("");
+        edtEmail.setText("");
+        edtCpfCnpj.setText("");
     }//GEN-LAST:event_edtSalvarActionPerformed
+
+    private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
+         //Metodo excluir dados.
+      resposta = JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir ?");
+       if (resposta == JOptionPane.YES_OPTION) {
+      us.setID_USUARIO(Integer.parseInt(edtCodigo.getText()));
+      dao.delete(us);
+       
+         //Metodo Limpar campo
+         edtCodigo.setText("");
+         edtCpfCnpj.setText("");
+         edtEmail.setText("");
+         edtNome.setText("");
+        
+       }
+       
+    }//GEN-LAST:event_edtExcluirActionPerformed
 
     /**
      * @param args the command line arguments

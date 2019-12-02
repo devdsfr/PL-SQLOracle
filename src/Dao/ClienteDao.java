@@ -5,6 +5,7 @@
  */
 package Dao;
 
+import connection.ConexaoBD;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +19,9 @@ import model.Cliente;
 
 public class ClienteDao {
       private Connection con = null;
-       
+      ConexaoBD conex = new ConexaoBD();
+      Cliente mod = new Cliente();
+      
        public ClienteDao (){
            con = ConnectionFactory.getConnection();
            
@@ -92,20 +95,20 @@ public class ClienteDao {
     }
     
 
-       public boolean delete(Cliente cliente){
+       public void delete(Cliente cli){
         
-        String sql = "DELETE FROM CLIENTE WHERE id =  ?";
+        String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE =  ?";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             
-            stmt.setInt(1, cliente.getId_cliente());
+            stmt.setInt(1, cli.getId_cliente());
             stmt.executeUpdate();
-            return true;
+             JOptionPane.showMessageDialog(null ,"Cliente excluido com sucesso.");
         } catch (SQLException ex) {
             System.err.println("Erro" +ex);
-            return false;
+            
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

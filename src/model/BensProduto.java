@@ -9,13 +9,18 @@ package model;
  *
  * @author thiago
  */
-public class Produto {
+public class BensProduto {
+
+    
+   
+    
     private int ID_PRODUTO;
     private String Descricao;
     private double Valor;
-    private double Total;
+    private int Total;
+    private String Pesquisa;
 
-    public Produto() {
+    public BensProduto() {
      
     }
     
@@ -23,11 +28,12 @@ public class Produto {
     
     }
 
-    public Produto(int ID_PRODUTO, String Descricao, double Valor) {
+    public BensProduto(int ID_PRODUTO, String Descricao, double Valor, int Total, String Pesquisa) {
         this.ID_PRODUTO = ID_PRODUTO;
         this.Descricao = Descricao;
         this.Valor = Valor;
         this.Total = Total;
+        this.Pesquisa = Pesquisa;
     }
 
     public int getID_PRODUTO() {
@@ -58,8 +64,14 @@ public class Produto {
         return Total;
     }
 
-    public void setTotal(double Total) {
+    public void setTotal(int Total) {
         this.Total = Total;
+    }
+  public String getPesquisa() {
+        return Pesquisa;
+    }
+    public void setPesquisa(String pesquisa) {
+        this.Pesquisa = pesquisa;
     }
     
 
@@ -67,7 +79,7 @@ public class Produto {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void add(Produto produto) {
+    public void add(BensProduto produto) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

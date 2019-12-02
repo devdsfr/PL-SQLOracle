@@ -5,6 +5,7 @@
  */
 package Dao;
 
+import connection.ConexaoBD;
 import java.sql.Connection;
 import connection.ConnectionFactory;
 import java.sql.PreparedStatement;
@@ -12,9 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.Itens;
 public class ItensDao {
      private Connection con = null;
+     ConexaoBD conex = new ConexaoBD();
+     Itens it = new Itens();
 
     public ItensDao() {
         con = ConnectionFactory.getConnection();
@@ -22,7 +26,7 @@ public class ItensDao {
 }
  public boolean save(Itens itens){
         
-        String sql = "INSERT INTO ITENS (QTD_VENDIDA, DESCONTO_DO_ITEM, VALOR_VENDAS, TOTAL_ITEM) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO ITENS_VENDAS (QTD_VENDIDA, DESCONTO_DO_ITEM, VALOR_VENDAS, TOTAL_ITEM) VALUES (?, ?, ?, ?)";
         
         PreparedStatement stmt = null;
         try {
@@ -90,16 +94,17 @@ public class ItensDao {
     }
     
 
-       public boolean delete(Itens itens){
+       public boolean delete(Itens it){
         
-        String sql = "DELETE FROM ITENS WHERE id =  ?";
+        String sql = "DELETE FROM ITENS_VENDAS WHERE ID_ITENS IN = (?)";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             
-            stmt.setDouble(1, itens.getId_itens());
+            stmt.setDouble(1, it.getId_itens());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null ,  "Produto excluido com sucesso.");
             return true;
         } catch (SQLException ex) {
             System.err.println("Erro" +ex);

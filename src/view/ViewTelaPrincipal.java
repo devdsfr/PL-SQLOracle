@@ -9,12 +9,12 @@ package view;
  *
  * @author thiago
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class ViewTelaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaPrincipal
      */
-    public TelaPrincipal() {
+    public ViewTelaPrincipal() {
         initComponents();
     }
 
@@ -68,7 +68,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Cliente");
 
-        jMenuItem1.setText("Tela de Cliente");
+        jMenuItem1.setText("Cadastro Cliente");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -80,7 +80,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Produto");
 
-        jMenuItem2.setText("Tela de Produto");
+        jMenuItem2.setText("Cadastro Produto");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -92,7 +92,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Vendas");
 
-        jMenuItem3.setText("Tela de Vendas");
+        jMenuItem3.setText("Fazer Venda");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -104,7 +104,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu4.setText("Itens de Venda");
 
-        jMenuItem4.setText("Tela de Itens de Venda");
+        jMenuItem4.setText("Itens Vendas");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -116,7 +116,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu5.setText("Usuarios");
 
-        jMenuItem5.setText("Usuarios");
+        jMenuItem5.setText("Cadastro Usuario");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -145,27 +145,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         
-        new TelaCliente().setVisible(true);
+        new ViewCadastroCliente().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
-        new Produtoo().setVisible(true);
+        new ViewCadastroProduto().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new Vendass().setVisible(true);
+        new ViewVendas().setVisible(true);
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       new ItensDeVenda().setVisible(true);
+       new ViewItens_e_Vendas().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-      new Usuarioo().setVisible(true);
+      new ViewCadastroUsuario().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
@@ -185,20 +185,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewTelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaPrincipal().setVisible(true);
+                new ViewTelaPrincipal().setVisible(true);
             }
         });
     }

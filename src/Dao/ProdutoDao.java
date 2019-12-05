@@ -49,9 +49,11 @@ public class ProdutoDao {
         }
         
     
-    public  BensProduto buscarProduto (BensProduto mod){
+    public  BensProduto buscarProduto (int ID_PRODUTO) throws SQLException{
         conex.conexao();
-        conex.executaSql("SELECT * FROM PRODUTO WHERE ID_PRODUTO VALUES (?)" +mod.getPesquisa());
+        PreparedStatement stmt = null;
+        conex.executaSql("SELECT * FROM PRODUTO WHERE ID_PRODUTO VALUES (?)");
+        stmt.setInt(1, ID_PRODUTO);
         try{
             
             
@@ -63,7 +65,7 @@ public class ProdutoDao {
         mod.setTotal(conex.rs.getInt("TOTAL"));
         
         }catch (SQLException ex){
-            JOptionPane.showMessageDialog(null ,  "Erro ao buscar produto.");
+            JOptionPane.showMessageDialog(null ,  "Erro ao buscar produto."+ex);
         }
         conex.desconectar();
            return mod;

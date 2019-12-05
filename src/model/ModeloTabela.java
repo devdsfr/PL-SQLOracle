@@ -9,58 +9,57 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author thiago
- */
+//Metodo para chamar os itens na tabela.
+
 public class ModeloTabela extends AbstractTableModel{
 
+    private ArrayList linhas = null;
+    private String [] colunas = null;
     
-    
-    
-    private List<BensProduto> dados = new ArrayList<>();
-    private String[] colunas = {"Descrição","Valor","Total"};
-
-    @Override
-    public String getColumnName(int column) {
-        return colunas[column]; //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
-
-    @Override
-    public int getRowCount() {
-        return dados.size();
+    public ModeloTabela (ArrayList lin, String[] col){
+        setLinhas(lin);
+        setColunas(col);
+  
     }
 
-    @Override
-    public int getColumnCount() {
+   
+    public ArrayList getLinhas() {
+        return linhas;
+    }
+
+    /**
+     * @param linhas the linhas to set
+     */
+    public void setLinhas(ArrayList linhas) {
+        this.linhas = linhas;
+    }
+
+    /**
+     * @return the colunas
+     */
+    public String[] getColunas() {
+        return colunas;
+    }
+
+    /**
+     * @param colunas the colunas to set
+     */
+    public void setColunas(String[] colunas) {
+        this.colunas = colunas;
+    }
+    
+    public int getColumnCount(){
         return colunas.length;
-    }
-
-    @Override
-    public Object getValueAt(int linha, int coluna) {
         
-        switch(coluna){
-            case 0:
-                return dados.get(linha).getDescricao();
-            case 1:
-                return dados.get(linha).getValor();
-            case 2:
-                return dados.get(linha).getTotal();
-        }
-        return null;
     }
-    
-    public void addRow (BensProduto p){
-        this.dados.add(p);
-        this.fireTableDataChanged();
+    public int getRowCount(){
+        return linhas.size();
     }
-    public void removeRow (int linha){
-      this.dados.remove(linha);
-      this.fireTableRowsDeleted(linha, linha);
+    public String getColumnName (int numCol){
+        return colunas[numCol];
     }
-    
-    
+    public Object getValueAt(int numLin, int numCol){
+        Object[] linha = (Object[])getLinhas().get(numLin);
+        return linha[numCol];
+    }
 } 

@@ -5,14 +5,18 @@
  */
 package view;
 
+import model.ModeloTabela;
 import javax.swing.text.MaskFormatter;
 import model.Cliente;
 import Dao.ClienteDao;
 import connection.ConexaoBD;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
-public class TelaCliente extends javax.swing.JFrame {
+public class ViewCadastroCliente extends javax.swing.JFrame {
     ConexaoBD conex = new ConexaoBD();
     Cliente cli = new Cliente();
     ClienteDao dao = new ClienteDao();
@@ -21,8 +25,9 @@ public class TelaCliente extends javax.swing.JFrame {
     /**
      * Creates new form Cliente
      */
-    public TelaCliente() {
+    public ViewCadastroCliente() {
         initComponents();
+        preencherTabela ("SELECT * FROM CLIENTE ORDER BY ID_CLIENTE");
     }
 
     /**
@@ -38,6 +43,7 @@ public class TelaCliente extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
+        buttonGroup5 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -46,9 +52,14 @@ public class TelaCliente extends javax.swing.JFrame {
         edtCodigoCliente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         edtNomeFantasia = new javax.swing.JTextField();
-        edtCPF = new javax.swing.JRadioButton();
-        edtCNPJ = new javax.swing.JRadioButton();
-        edtCpfCnpj = new javax.swing.JFormattedTextField();
+        botaoCPF = new javax.swing.JRadioButton();
+        botaoCNPJ = new javax.swing.JRadioButton();
+        edtCpff = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        edtCNPJJ = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        edtListaProduto = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         edtCancelar = new javax.swing.JButton();
@@ -58,7 +69,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Arial", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CADASTRO CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 1, 14), new java.awt.Color(153, 153, 153))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -69,7 +80,7 @@ public class TelaCliente extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 12, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -89,58 +100,105 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Nome Fantasia:");
 
-        buttonGroup1.add(edtCPF);
-        edtCPF.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        edtCPF.setText("CPF");
+        buttonGroup1.add(botaoCPF);
+        botaoCPF.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botaoCPF.setText("CPF");
+        botaoCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCPFActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(edtCNPJ);
-        edtCNPJ.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        edtCNPJ.setText("CNPJ");
+        buttonGroup1.add(botaoCNPJ);
+        botaoCNPJ.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botaoCNPJ.setText("CNPJ");
+        botaoCNPJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCNPJActionPerformed(evt);
+            }
+        });
 
         try {
-            edtCpfCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-###-##")));
+            edtCpff.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        edtCpfCnpj.addActionListener(new java.awt.event.ActionListener() {
+        edtCpff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCpfCnpjActionPerformed(evt);
+                edtCpffActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("CPF");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("CNPJ");
+
+        try {
+            edtCNPJJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        edtCNPJJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtCNPJJActionPerformed(evt);
+            }
+        });
+
+        edtListaProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(edtListaProduto);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(botaoCPF)
+                .addGap(47, 47, 47)
+                .addComponent(botaoCNPJ)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(edtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4))
-                                .addGap(19, 19, 19))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(edtCPF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(edtCNPJ)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(edtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(194, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(edtCpff, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(edtCNPJJ, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(168, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -152,12 +210,18 @@ public class TelaCliente extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(edtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtCNPJ)
-                    .addComponent(edtCPF))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addComponent(botaoCPF)
+                    .addComponent(botaoCNPJ))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(edtCpff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(edtCNPJJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -190,6 +254,11 @@ public class TelaCliente extends javax.swing.JFrame {
 
         edtConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
         edtConsultar.setText("CONSULTAR");
+        edtConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,33 +298,52 @@ public class TelaCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void DesabilitaCampos(){
+        edtCodigoCliente.setEditable(false);
+        edtNomeFantasia.setEditable(false);
+        edtRazaoSocial.setEditable(false);
+        edtCpff.setEditable(false);
+        edtCNPJJ.setEditable(false);
+    }
+   public void HabilitaCamposFisica(){
+        edtNomeFantasia.setEditable(true);
+        edtRazaoSocial.setEditable(true);
+        edtCpff.setEditable(true);
+        edtCNPJJ.setEditable(false);
+   }
+   public void HabilitaCamposJuridica(){
+        edtNomeFantasia.setEditable(true);
+        edtRazaoSocial.setEditable(false);
+        edtCpff.setEditable(false);
+        edtCNPJJ.setEditable(true);
+   }
     private void edtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSalvarActionPerformed
         // Salvar os dados do produto.
         Cliente cliente = new Cliente();
@@ -263,14 +351,14 @@ public class TelaCliente extends javax.swing.JFrame {
         
         cliente.setNome_ou_razao_social(edtRazaoSocial.getText());
         cliente.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
-        cliente.setCpf_Cnpj(edtCpfCnpj.getText());
+        cliente.setCpf_Cnpj(edtCpff.getText());
         clientes.save(cliente);
         
         //Metodo Limpar tela.
         edtCodigoCliente.setText("");
         edtRazaoSocial.setText("");
         edtNomeFantasia.setText("");
-        edtCpfCnpj.setText("");
+        edtCpff.setText("");
     }//GEN-LAST:event_edtSalvarActionPerformed
 
     private void edtCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodigoClienteActionPerformed
@@ -285,7 +373,7 @@ public class TelaCliente extends javax.swing.JFrame {
       dao.delete(cli);
       
       //Metodo limpar campos.
-      edtCpfCnpj.setText("");
+      edtCpff.setText("");
       edtNomeFantasia.setText("");
       edtRazaoSocial.setText("");
       edtCodigoCliente.setText("");
@@ -296,9 +384,67 @@ public class TelaCliente extends javax.swing.JFrame {
          this.dispose();
     }//GEN-LAST:event_edtCancelarActionPerformed
 
-    private void edtCpfCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCpfCnpjActionPerformed
+    private void edtCpffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCpffActionPerformed
       //MaskFormatter edtCPF new MaskFormatter ("###,###,###-##");
-    }//GEN-LAST:event_edtCpfCnpjActionPerformed
+    }//GEN-LAST:event_edtCpffActionPerformed
+
+    private void botaoCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCNPJActionPerformed
+       if(botaoCNPJ.isSelected()){
+           HabilitaCamposJuridica();
+       }
+    }//GEN-LAST:event_botaoCNPJActionPerformed
+
+    private void botaoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCPFActionPerformed
+        if(botaoCPF.isSelected()){
+            HabilitaCamposFisica();
+        }
+    }//GEN-LAST:event_botaoCPFActionPerformed
+
+    private void edtCNPJJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCNPJJActionPerformed
+     
+     
+
+    }
+
+public void preencherTabela (String Sql){
+        ArrayList dados = new ArrayList();
+        String [] colunas = new String [] {"Codigo Cliente","Razão Social","Nome Fantasia","CPF"};
+        conex.conexao();
+        conex.executaSql(Sql);
+        try{
+            conex.rs.first();
+            do{
+                dados.add(new Object[]{conex.rs.getInt("ID_CLIENTE"),conex.rs.getString("NOME_OU_RAZAO_SOCIAL"),conex.rs.getString("SOBRENOME_NOME_FANTASIA"),conex.rs.getInt("CPF_CNPJ")});
+                
+            }while(conex.rs.next());
+                
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(rootPane,"Erro ao preencher o ArrayList"+ex);
+            }
+        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        edtListaProduto.setModel(modelo);
+        edtListaProduto.getColumnModel().getColumn(0).setPreferredWidth(150);
+        edtListaProduto.getColumnModel().getColumn(0).setResizable(false);
+        
+        edtListaProduto.getColumnModel().getColumn(1).setPreferredWidth(200);
+        edtListaProduto.getColumnModel().getColumn(1).setResizable(false);
+        
+        edtListaProduto.getColumnModel().getColumn(2).setPreferredWidth(200);
+        edtListaProduto.getColumnModel().getColumn(2).setResizable(false);
+        
+        edtListaProduto.getColumnModel().getColumn(3).setPreferredWidth(200);
+        edtListaProduto.getColumnModel().getColumn(3).setResizable(false);
+        
+        edtListaProduto.getTableHeader().setReorderingAllowed(false);
+        edtListaProduto.setAutoResizeMode(edtListaProduto.AUTO_RESIZE_OFF);
+        edtListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        conex.desconectar();
+    }//GEN-LAST:event_edtCNPJJActionPerformed
+
+    private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,26 +476,31 @@ public class TelaCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCliente().setVisible(true);
+                new ViewCadastroCliente().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton botaoCNPJ;
+    private javax.swing.JRadioButton botaoCPF;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.JRadioButton edtCNPJ;
-    private javax.swing.JRadioButton edtCPF;
+    private javax.swing.ButtonGroup buttonGroup5;
+    private javax.swing.JFormattedTextField edtCNPJJ;
     private javax.swing.JButton edtCancelar;
     private javax.swing.JTextField edtCodigoCliente;
     private javax.swing.JButton edtConsultar;
-    private javax.swing.JFormattedTextField edtCpfCnpj;
+    private javax.swing.JFormattedTextField edtCpff;
     private javax.swing.JButton edtExcluir;
+    private javax.swing.JTable edtListaProduto;
     private javax.swing.JTextField edtNomeFantasia;
     private javax.swing.JTextField edtRazaoSocial;
     private javax.swing.JButton edtSalvar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -357,5 +508,6 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

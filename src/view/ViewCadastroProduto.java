@@ -17,8 +17,10 @@ import model.ModeloTabela;
 import model.BensProduto;
 import model.ModelTabela;
 import connection.ConexaoBD;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
-public class Produtoo extends javax.swing.JFrame {
+public class ViewCadastroProduto extends javax.swing.JFrame {
     ConexaoBD conex = new ConexaoBD();
     BensProduto mod = new BensProduto();
     ProdutoDao dao = new ProdutoDao();
@@ -29,14 +31,14 @@ public class Produtoo extends javax.swing.JFrame {
       
     }
 
-    ModeloTabela TableModel = new ModeloTabela();
+    //ModeloTabela TableModel = new ModeloTabela();
     private Connection stmt;
     private String sql;
     
-    public Produtoo() {
+    public ViewCadastroProduto() {
         initComponents();
-        
-        edtListaProduto.setModel(TableModel);
+        preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
+       // edtListaProduto.setModel(TableModel);
     }
 
    
@@ -89,9 +91,14 @@ public class Produtoo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descrição", "Valor", "Total"
+
             }
         ));
+        edtListaProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                edtListaProdutoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(edtListaProduto);
 
         jLabel2.setText("Descrição:");
@@ -122,30 +129,31 @@ public class Produtoo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(edtConsultar)
-                                .addGap(18, 18, 18)
-                                .addComponent(edtPesquisa))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(edtDescricao)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(29, 29, 29)
+                                .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(edtConsultar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(edtPesquisa))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(edtValor, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addComponent(edtTotal))
+                            .addComponent(edtTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                            .addComponent(edtDescricao))
                         .addGap(20, 20, 20))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -155,21 +163,21 @@ public class Produtoo extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(edtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(edtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtConsultar)
                     .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.black, null, null));
@@ -301,7 +309,7 @@ public class Produtoo extends javax.swing.JFrame {
       
         BensProduto produto = new BensProduto();
       ProdutoDao produtos = new ProdutoDao();
-      ModeloTabela p = new ModeloTabela();
+      //ModeloTabela p = new ModeloTabela();
       
       //produto.setID_PRODUTO(Integer.parseInt(edtCodigo.getText()));
       produto.setDescricao(edtDescricao.getText());
@@ -313,7 +321,7 @@ public class Produtoo extends javax.swing.JFrame {
       edtValor.setText("");
       edtDescricao.setText("");
       edtTotal.setText("");
-      
+      preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
       
      // ProdutoTableModel.addRow();
 
@@ -327,17 +335,83 @@ public class Produtoo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtExcluirComponentRemoved
 
+    public void preencherTabela (String Sql){
+        ArrayList dados = new ArrayList();
+        String [] colunas = new String [] {"Codigo","Descrição","Valor","Total"};
+        conex.conexao();
+        conex.executaSql(Sql);
+        try{
+            conex.rs.first();
+            do{
+                dados.add(new Object[]{conex.rs.getInt("ID_PRODUTO"),conex.rs.getString("DESCRICAO"),conex.rs.getDouble("VALOR"),conex.rs.getDouble("TOTAL")});
+                
+            }while(conex.rs.next());
+                
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(rootPane,"Erro ao preencher o ArrayList"+ex);
+            }
+        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        edtListaProduto.setModel(modelo);
+        edtListaProduto.getColumnModel().getColumn(0).setPreferredWidth(150);
+        edtListaProduto.getColumnModel().getColumn(0).setResizable(false);
+        
+        edtListaProduto.getColumnModel().getColumn(1).setPreferredWidth(160);
+        edtListaProduto.getColumnModel().getColumn(1).setResizable(false);
+        
+        edtListaProduto.getColumnModel().getColumn(2).setPreferredWidth(150);
+        edtListaProduto.getColumnModel().getColumn(2).setResizable(false);
+        
+        edtListaProduto.getColumnModel().getColumn(3).setPreferredWidth(150);
+        edtListaProduto.getColumnModel().getColumn(3).setResizable(false);
+        
+        edtListaProduto.getTableHeader().setReorderingAllowed(false);
+        edtListaProduto.setAutoResizeMode(edtListaProduto.AUTO_RESIZE_OFF);
+        edtListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        conex.desconectar();
+    }
     private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
-        // Metodo de Consultar.
-       // ProdutoDao dao = new ProdutoDao();
+        //Metodo de Consultar.
+      //ProdutoDao dao = new ProdutoDao();
         //BensProduto mod = new BensProduto();
         //mod.setPesquisa(edtPesquisa.getText());
-        //BensProduto model =control.buscarProduto(mod);
+        //edtConsultar
         //edtCodigo.setText(String.valueOf(model.getID_PRODUTO()));
         //edtDescricao.setText(model.getDescricao());
         //edtValor.setText(String.valueOf(model.getValor()));
         //edtTotal.setText(String.valueOf(model.getValor()));
     }//GEN-LAST:event_edtConsultarActionPerformed
+
+    private void edtListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtListaProdutoMouseClicked
+        //Metodo de selecionar os dados.
+        String ID_PRODUTO = ""+ edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 1);
+        //conex.conexao();
+        //conex.executaSql("SELECT * FROM  PRODUTO WHERE ID_PRODUTO='" + ID_PRODUTO + "'");
+        //try{
+            //conex.rs.first();
+            //edtCodigo.setText(String.valueOf(conex.rs.getInt("ID_PRODUTO")));
+            //edtDescricao.setText(conex.rs.getString("DESCRICAO"));
+            //edtValor.setText(String.valueOf(conex.rs.getDouble("VALOR")));
+          //  edtTotal.setText(String.valueOf(conex.rs.getDouble("TOTAL")));
+        //}catch(SQLException ex){
+          //  JOptionPane.showMessageDialog(null, "Erro ao selecionar os dados" +ex);
+        //}
+        
+        
+        //conex.desconectar();
+
+// Metodo para selecionar produto dentro tabela produt para excluir.
+   if (edtListaProduto.getSelectedRow() != -1){
+        
+     edtCodigo.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 0).toString());
+     edtDescricao.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 1).toString());
+     edtValor.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 2).toString());
+     edtTotal.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 3).toString());
+      
+    
+       }
+    
+    }//GEN-LAST:event_edtListaProdutoMouseClicked
     //Metodo para excluir cadastro.
     //private void excluir cadastro();
 
@@ -370,7 +444,7 @@ public class Produtoo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Produtoo().setVisible(true);
+                new ViewCadastroProduto().setVisible(true);
             }
         });
     }

@@ -8,12 +8,12 @@ package view;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
-public class Login extends javax.swing.JFrame {
+public class ViewLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Login() {
+    public ViewLogin() {
         initComponents();
     }
 
@@ -175,7 +175,7 @@ public class Login extends javax.swing.JFrame {
   
         if (this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
             JOptionPane.showMessageDialog( null,"Bem Vindo");
-             new TelaPrincipal().setVisible(true);
+             new ViewTelaPrincipal().setVisible(true);
            this.dispose();
         
         } else{
@@ -207,7 +207,7 @@ public class Login extends javax.swing.JFrame {
             if (this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))) {
                 JOptionPane.showMessageDialog(null, "Bem vindo!");
               
-                new view.TelaPrincipal().setVisible(true);
+                new view.ViewTelaPrincipal().setVisible(true);
            this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Dados invalidos!");
@@ -226,7 +226,7 @@ public class Login extends javax.swing.JFrame {
         if(this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))){
             JOptionPane.showMessageDialog(null, "Bem vindo");
             
-            new view.TelaPrincipal().setVisible(true);
+            new view.ViewTelaPrincipal().setVisible(true);
             
            this.dispose();
         }
@@ -253,7 +253,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new ViewLogin().setVisible(true);
             }
         });
     }

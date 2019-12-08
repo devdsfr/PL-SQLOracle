@@ -75,24 +75,25 @@ public boolean save(Usuario usuario){
     }
         return usuarios;
     }
-       public boolean Editar (Usuario usua){
+       public void Editar (Usuario usua){
         
-        String sql = "UPDATE USUARIO SET NOME =?, EMAIL=?, CPF=?, WHERE ID_USUARIO =?";
+        String sql = "UPDATE USUARIO SET NOME =?, EMAIL=?, CPF=? WHERE ID_USUARIO =?";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, usua.getUsuario());
             stmt.setString(2, usua.getEmail());
-            stmt.setString(2, usua.getCPF());
+            stmt.setString(3, usua.getCPF());
+            stmt.setInt(4, usua.getID_USUARIO());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Editado com sucesso!");
-            return true;
+           
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null ,"Erro ao  Editar usuario." +ex);
-            return false;
+            
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+            //ConnectionFactory.closeConnection(con, stmt);
         }
     }
     

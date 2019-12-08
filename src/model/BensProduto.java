@@ -17,7 +17,7 @@ public class BensProduto {
     private int ID_PRODUTO;
     private String Descricao;
     private double Valor;
-    private int Total;
+    private double Total;
     private String Pesquisa;
 
     public BensProduto() {
@@ -64,7 +64,7 @@ public class BensProduto {
         return Total;
     }
 
-    public void setTotal(int Total) {
+    public void setTotal(double Total) {
         this.Total = Total;
     }
   public String getPesquisa() {

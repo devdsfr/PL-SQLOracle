@@ -77,9 +77,9 @@ public class ClienteDao {
     }
         return Cliente;
     }
-       public boolean update(Cliente cliente){
+       public void Editar (Cliente cliente){
         
-        String sql = "UPDATE CLIENTE SET descricao = ? WHERE id = ?";
+        String sql = "UPDATE CLIENTE SET NOME_OU_RAZAO_SOCIAL=?, SOBRENOME_NOME_FANTASIA=?, CPF=?, CNPJ=?, NOME=?, SOBRE_NOME=? WHERE ID_CLIENTE=?";
         
         PreparedStatement stmt = null;
         try {
@@ -88,13 +88,15 @@ public class ClienteDao {
             stmt.setString(2, cliente.getSobreNome_ou_NomeFantasia());
             stmt.setString(3, cliente.getCpf());
             stmt.setString(4, cliente.getCnpj());
+            stmt.setString(5, cliente.getNome());
+            stmt.setString(6, cliente.getSobre_Nome());
+            stmt.setInt(7, cliente.getId_cliente());
             stmt.executeUpdate();
-            return true;
+           JOptionPane.showMessageDialog(null ,  "Cliente Alterado com sucesso!.");
         } catch (SQLException ex) {
-            System.err.println("Erro" +ex);
-            return false;
+           JOptionPane.showMessageDialog(null ,  "Erro ao Alterar Cliente!"+ex);
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+            //ConnectionFactory.closeConnection(con, stmt);
         }
     }
     

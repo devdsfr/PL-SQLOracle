@@ -283,7 +283,15 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_edtCpfActionPerformed
 
     private void edtaEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtaEditarActionPerformed
-        // TODO add your handling code here:
+      // Metodo para Editar cliente.
+      us.setID_USUARIO(Integer.parseInt(edtCodigo.getText()));
+      us.setUsuario(edtNome.getText());
+      us.setEmail(edtEmail.getText());
+      us.setCPF(edtCpf.getText());
+     
+      dao.Editar(us);
+      
+      preencherTabela ("SELECT * FROM USUARIO ORDER BY ID_USUARIO");
     }//GEN-LAST:event_edtaEditarActionPerformed
 
     private void edtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSairActionPerformed

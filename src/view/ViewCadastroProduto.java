@@ -24,6 +24,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     ConexaoBD conex = new ConexaoBD();
     BensProduto mod = new BensProduto();
     ProdutoDao dao = new ProdutoDao();
+   
     
     int resposta =0;
 
@@ -81,7 +82,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.black, null, null));
 
-        jLabel1.setText("Codigo:");
+        jLabel1.setText("Codigo");
 
         edtListaProduto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         edtListaProduto.setModel(new javax.swing.table.DefaultTableModel(
@@ -99,7 +100,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(edtListaProduto);
 
-        jLabel2.setText("Descrição:");
+        jLabel2.setText("Descrição");
 
         edtDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,9 +108,9 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Valor:");
+        jLabel3.setText("Valor");
 
-        jLabel4.setText("Total:");
+        jLabel4.setText("Quantidade");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -119,7 +120,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -261,8 +262,14 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     
             
     private void edtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEditarActionPerformed
-        // :
-        
+        //Metodo para alterar um produto.
+      mod.setID_PRODUTO(Integer.parseInt(edtCodigo.getText()));
+      mod.setDescricao(edtDescricao.getText());
+      mod.setValor(Double.parseDouble(edtValor.getText()));
+      mod.setTotal(Double.parseDouble(edtTotal.getText()));
+      dao.Editar(mod);
+      
+      preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");  
     }//GEN-LAST:event_edtEditarActionPerformed
 
     private void edtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCancelarActionPerformed
@@ -298,7 +305,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     
       produto.setDescricao(edtDescricao.getText());
       produto.setValor(Double.parseDouble(edtValor.getText()));
-      produto.setTotal(Integer.parseInt(edtTotal.getText()));
+      produto.setTotal(Double.parseDouble(edtTotal.getText()));
       produtos.save(produto);
       
       //Metodo Limpar campo

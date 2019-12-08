@@ -34,7 +34,7 @@ public class ProdutoDao {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, produto.getDescricao());
             stmt.setDouble(2, produto.getValor());
-            stmt.setInt(3, (int) produto.getTotal());
+            stmt.setDouble(3, produto.getTotal());
             stmt.executeUpdate();
      
             JOptionPane.showMessageDialog(null ,  "Salvo com sucesso");
@@ -72,22 +72,23 @@ public class ProdutoDao {
     
     }
     
-       public boolean update(BensProduto produto){
+       public void Editar (BensProduto mod){
         
-        String sql = "UPDATE PRODUTO SET descricao = ? WHERE id = ?";
+        String sql = "UPDATE PRODUTO SET DESCRICAO=?, VALOR=?, TOTAL=? WHERE ID_PRODUTO=?";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, produto.getDescricao());
-            stmt.setDouble(2, produto.getValor());
+            stmt.setString(1, mod.getDescricao());
+            stmt.setDouble(2, mod.getValor());
+            stmt.setDouble(3, mod.getTotal());
+            stmt.setInt(4, mod.getID_PRODUTO());
             stmt.executeUpdate();
-            return true;
+             JOptionPane.showMessageDialog(null ,  "Produto Alterado com sucesso!.");
         } catch (SQLException ex) {
-            System.err.println("Erro" +ex);
-            return false;
+             JOptionPane.showMessageDialog(null ,  "Erro ao Alterar Produto."+ex);
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+            //ConnectionFactory.closeConnection(con, stmt);
         }
            
         }

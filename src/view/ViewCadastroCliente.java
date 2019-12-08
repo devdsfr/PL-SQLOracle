@@ -67,7 +67,7 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
         edtCancelar = new javax.swing.JButton();
         edtExcluir = new javax.swing.JButton();
         edtSalvar = new javax.swing.JButton();
-        edtConsultar = new javax.swing.JButton();
+        edtEditar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         edtListaCliente = new javax.swing.JTable();
 
@@ -263,10 +263,10 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
             }
         });
 
-        edtConsultar.setText("EDITAR");
-        edtConsultar.addActionListener(new java.awt.event.ActionListener() {
+        edtEditar.setText("EDITAR");
+        edtEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtConsultarActionPerformed(evt);
+                edtEditarActionPerformed(evt);
             }
         });
 
@@ -281,7 +281,7 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(edtConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edtEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(edtCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -297,10 +297,10 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(edtExcluir)
                 .addGap(18, 18, 18)
-                .addComponent(edtConsultar)
+                .addComponent(edtEditar)
                 .addGap(18, 18, 18)
                 .addComponent(edtCancelar)
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         edtListaCliente.setModel(new javax.swing.table.DefaultTableModel(
@@ -343,13 +343,12 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -373,7 +372,7 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
    }
    public void HabilitaCamposJuridica(){
         edtNomeFantasia.setEditable(true);
-        edtRazaoSocial.setEditable(false);
+        edtRazaoSocial.setEditable(true);
         edtCpff.setEditable(false);
         edtCNPJJ.setEditable(true);
    }
@@ -502,9 +501,31 @@ public void preencherTabela (String Sql){
         conex.desconectar();
     }//GEN-LAST:event_edtCNPJJActionPerformed
 
-    private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtConsultarActionPerformed
+    private void edtEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEditarActionPerformed
+        // Metodo para Editar cliente.
+      cli.setId_cliente(Integer.parseInt(edtCodigoCliente.getText()));
+      cli.setNome_ou_razao_social(edtRazaoSocial.getText());
+      cli.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
+      cli.setCnpj(edtCNPJJ.getText());
+      cli.setNome(edtNome.getText());
+      cli.setSobre_Nome(edtSobreNome.getText());
+      cli.setCpf(edtCpff.getText());
+     
+      dao.Editar(cli);
+      
+      //Metodo para atualizar lista de clientes.
+      preencherTabela ("SELECT * FROM CLIENTE ORDER BY ID_CLIENTE");
+      
+      //Metodo para limpar campos
+      edtCodigoCliente.setText("");
+      edtNomeFantasia.setText("");
+      edtSobreNome.setText("");
+      edtRazaoSocial.setText("");
+      edtSobreNome.setText("");
+      edtCNPJJ.setText("");
+      edtCpff.setText("");
+      edtNome.setText("");
+    }//GEN-LAST:event_edtEditarActionPerformed
 
     private void edtListaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtListaClienteMouseClicked
       //Metodo para selecionar os dados e prencher os campos.
@@ -571,8 +592,8 @@ public void preencherTabela (String Sql){
     private javax.swing.JFormattedTextField edtCNPJJ;
     private javax.swing.JButton edtCancelar;
     private javax.swing.JTextField edtCodigoCliente;
-    private javax.swing.JButton edtConsultar;
     private javax.swing.JFormattedTextField edtCpff;
+    private javax.swing.JButton edtEditar;
     private javax.swing.JButton edtExcluir;
     private javax.swing.JTable edtListaCliente;
     private javax.swing.JTextField edtNome;

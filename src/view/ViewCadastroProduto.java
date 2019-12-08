@@ -58,8 +58,6 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
         edtValor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         edtTotal = new javax.swing.JTextField();
-        edtConsultar = new javax.swing.JButton();
-        edtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         edtSalvar = new javax.swing.JButton();
         edtEditar = new javax.swing.JButton();
@@ -68,7 +66,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PRODUTO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Arial", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CADASTRO DE PRODUTOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,14 +111,6 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
 
         jLabel4.setText("Total:");
 
-        edtConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
-        edtConsultar.setText("Consultar");
-        edtConsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtConsultarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -137,15 +127,10 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(29, 29, 29)
                                 .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(edtConsultar)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(edtPesquisa))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -171,13 +156,9 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
                     .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtConsultar)
-                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.black, null, null));
@@ -190,7 +171,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        edtEditar.setText("INCLUIR");
+        edtEditar.setText("EDITAR");
         edtEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtEditarActionPerformed(evt);
@@ -236,11 +217,11 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(edtSalvar)
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addComponent(edtExcluir)
-                .addGap(18, 18, 18)
+                .addGap(45, 45, 45)
                 .addComponent(edtEditar)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addComponent(edtCancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -291,16 +272,21 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
         //Metodo excluir dados.
       resposta = JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir ?");
-       if (resposta == JOptionPane.YES_OPTION) {
-      mod.setID_PRODUTO(Integer.parseInt(edtCodigo.getText()));
-      dao.delete(mod);
+      
+      if (resposta == JOptionPane.YES_OPTION) {
+       mod.setID_PRODUTO(Integer.parseInt(edtCodigo.getText()));
+       dao.delete(mod);
+      }
       
       //Metodo Limpar campo
       edtValor.setText("");
       edtDescricao.setText("");
       edtTotal.setText("");
       edtCodigo.setText("");
-       }
+      
+      //Metodo para atualizar a lista de produtos após deletar algum produto.
+      preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
+       
         
     }//GEN-LAST:event_edtExcluirActionPerformed
 
@@ -309,9 +295,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
       
         BensProduto produto = new BensProduto();
       ProdutoDao produtos = new ProdutoDao();
-      //ModeloTabela p = new ModeloTabela();
-      
-      //produto.setID_PRODUTO(Integer.parseInt(edtCodigo.getText()));
+    
       produto.setDescricao(edtDescricao.getText());
       produto.setValor(Double.parseDouble(edtValor.getText()));
       produto.setTotal(Integer.parseInt(edtTotal.getText()));
@@ -321,9 +305,9 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
       edtValor.setText("");
       edtDescricao.setText("");
       edtTotal.setText("");
-      preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
       
-     // ProdutoTableModel.addRow();
+      //Metodo para atualizar lista de produtos após salvar algum produto.
+      preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
 
     }//GEN-LAST:event_edtSalvarActionPerformed
 
@@ -336,6 +320,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_edtExcluirComponentRemoved
 
     public void preencherTabela (String Sql){
+        //Metodo para trazer os dados do banco de dados para a tabela Produto.
         ArrayList dados = new ArrayList();
         String [] colunas = new String [] {"Codigo","Descrição","Valor","Total"};
         conex.conexao();
@@ -370,35 +355,10 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
         
         conex.desconectar();
     }
-    private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
-        //Metodo de Consultar.
-      //ProdutoDao dao = new ProdutoDao();
-        //BensProduto mod = new BensProduto();
-        //mod.setPesquisa(edtPesquisa.getText());
-        //edtConsultar
-        //edtCodigo.setText(String.valueOf(model.getID_PRODUTO()));
-        //edtDescricao.setText(model.getDescricao());
-        //edtValor.setText(String.valueOf(model.getValor()));
-        //edtTotal.setText(String.valueOf(model.getValor()));
-    }//GEN-LAST:event_edtConsultarActionPerformed
-
     private void edtListaProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtListaProdutoMouseClicked
         //Metodo de selecionar os dados.
         String ID_PRODUTO = ""+ edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 1);
-        //conex.conexao();
-        //conex.executaSql("SELECT * FROM  PRODUTO WHERE ID_PRODUTO='" + ID_PRODUTO + "'");
-        //try{
-            //conex.rs.first();
-            //edtCodigo.setText(String.valueOf(conex.rs.getInt("ID_PRODUTO")));
-            //edtDescricao.setText(conex.rs.getString("DESCRICAO"));
-            //edtValor.setText(String.valueOf(conex.rs.getDouble("VALOR")));
-          //  edtTotal.setText(String.valueOf(conex.rs.getDouble("TOTAL")));
-        //}catch(SQLException ex){
-          //  JOptionPane.showMessageDialog(null, "Erro ao selecionar os dados" +ex);
-        //}
-        
-        
-        //conex.desconectar();
+       
 
 // Metodo para selecionar produto dentro tabela produt para excluir.
    if (edtListaProduto.getSelectedRow() != -1){
@@ -407,9 +367,11 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
      edtDescricao.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 1).toString());
      edtValor.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 2).toString());
      edtTotal.setText(edtListaProduto.getValueAt(edtListaProduto.getSelectedRow(), 3).toString());
-      
+   
+    preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
     
        }
+   
     
     }//GEN-LAST:event_edtListaProdutoMouseClicked
     //Metodo para excluir cadastro.
@@ -452,12 +414,10 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton edtCancelar;
     private javax.swing.JTextField edtCodigo;
-    private javax.swing.JButton edtConsultar;
     private javax.swing.JTextField edtDescricao;
     private javax.swing.JButton edtEditar;
     private javax.swing.JButton edtExcluir;
     private javax.swing.JTable edtListaProduto;
-    private javax.swing.JTextField edtPesquisa;
     private javax.swing.JButton edtSalvar;
     private javax.swing.JTextField edtTotal;
     private javax.swing.JTextField edtValor;

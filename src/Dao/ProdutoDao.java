@@ -89,20 +89,6 @@ public class ProdutoDao {
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
-    
-    
-
-       //public void delete(BensProduto produ){
-        //conex.conexao();
-          //try{
-        //PreparedStatement pst = conex.con.prepareStatement("DELETE FROM PRODUTO WHERE ID_PRODUTO IN = ?");
-      //pst.setInt(1, produ.getID_PRODUTO());
-      
-        //JOptionPane.showMessageDialog(null ,  "Produto excluido com sucesso.");
-        //}catch (SQLException ex){
-          //  JOptionPane.showMessageDialog(null ,  "Erro ao excluir.");
-        
-        //conex.desconectar();
            
         }
     
@@ -124,7 +110,7 @@ public class ProdutoDao {
             System.err.println("Erro" +ex);
           
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+          //  ConnectionFactory(con, stmt);
 }
      }
       public void setID_PRODUTO(int parseInt) {

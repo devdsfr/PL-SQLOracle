@@ -13,18 +13,23 @@ import Dao.UsuarioDao;
 import connection.ConexaoBD;
 import model.Usuario;
 import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
+import model.ModeloTabela;
 
 public class ViewCadastroUsuario extends javax.swing.JFrame {
     ConexaoBD conex = new ConexaoBD();
     Usuario us = new Usuario();
     UsuarioDao dao = new UsuarioDao();
     int resposta = 0;
+    int flag = 0;
 
     /**
      * Creates new form Usuarioo
      */
     public ViewCadastroUsuario() {
         initComponents();
+         preencherTabela ("SELECT * FROM USUARIO ORDER BY ID_USUARIO");
     }
 
     /**
@@ -41,7 +46,6 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         edtSalvar = new javax.swing.JButton();
         edtaEditar = new javax.swing.JButton();
-        edtConsultar = new javax.swing.JButton();
         edtSair = new javax.swing.JButton();
         edtExcluir = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -49,14 +53,18 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         edtCodigo = new javax.swing.JTextField();
-        edtEmail = new javax.swing.JTextField();
         edtNome = new javax.swing.JTextField();
         edtCpf = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        edtSenha = new javax.swing.JPasswordField();
+        edtEmail = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        edtTabelaUsuario = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CADASTRO DE USUARIO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Arial", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,14 +94,6 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
             }
         });
 
-        edtConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
-        edtConsultar.setText("CONSULTAR");
-        edtConsultar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtConsultarActionPerformed(evt);
-            }
-        });
-
         edtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/sair-menu-2.png"))); // NOI18N
         edtSair.setText("SAIR");
         edtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -115,10 +115,9 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                     .addComponent(edtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(edtaEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -131,11 +130,9 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
                 .addComponent(edtSalvar)
                 .addGap(39, 39, 39)
                 .addComponent(edtaEditar)
-                .addGap(37, 37, 37)
-                .addComponent(edtConsultar)
-                .addGap(35, 35, 35)
+                .addGap(58, 58, 58)
                 .addComponent(edtExcluir)
-                .addGap(33, 33, 33)
+                .addGap(47, 47, 47)
                 .addComponent(edtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -146,8 +143,10 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
         jLabel3.setText("E-mail");
 
+        edtCodigo.setEnabled(false);
+
         try {
-            edtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-###-###-##")));
+            edtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -159,6 +158,38 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
         jLabel4.setText("CPF");
 
+        jLabel5.setText("Senha");
+
+        edtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtSenhaActionPerformed(evt);
+            }
+        });
+
+        edtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtEmailActionPerformed(evt);
+            }
+        });
+
+        edtTabelaUsuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        edtTabelaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                edtTabelaUsuarioMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(edtTabelaUsuario);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -166,17 +197,31 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(184, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(edtCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(edtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                            .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,20 +229,22 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(94, 94, 94))
+                    .addComponent(jLabel4)
+                    .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,24 +253,24 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,10 +282,6 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         //MaskFormatter edtCPF new MaskFormatter ("###,###,###-##");
     }//GEN-LAST:event_edtCpfActionPerformed
 
-    private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtConsultarActionPerformed
-
     private void edtaEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtaEditarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtaEditarActionPerformed
@@ -249,25 +292,33 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
     private void edtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSalvarActionPerformed
         // Salvar dados usuario.
+        
         Usuario usuario = new Usuario();
         UsuarioDao usuarios = new UsuarioDao();
         
         usuario.setUsuario(edtNome.getText());
         usuario.setEmail(edtEmail.getText());
-        usuario.setCPF_CNPJ(edtCpf.getText());
+        usuario.setSenha(edtSenha.getText());
+        usuario.setCPF(edtCpf.getText());
         usuarios.save(usuario);
+        
         //Metodo Limpar tela.
         edtCodigo.setText("");
         edtNome.setText("");
         edtEmail.setText("");
         edtCpf.setText("");
+        edtSenha.setText("");
+       
+        
     }//GEN-LAST:event_edtSalvarActionPerformed
 
     private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
          //Metodo excluir dados.
       resposta = JOptionPane.showConfirmDialog(rootPane,"Deseja realmente excluir ?");
-       if (resposta == JOptionPane.YES_OPTION) {
-      us.setID_USUARIO(Integer.parseInt(edtCodigo.getText()));
+       
+      if (resposta == JOptionPane.YES_OPTION) {
+      
+          us.setID_USUARIO(Integer.parseInt(edtCodigo.getText()));
       dao.delete(us);
        
          //Metodo Limpar campo
@@ -275,14 +326,76 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
          edtCpf.setText("");
          edtEmail.setText("");
          edtNome.setText("");
+         
+         preencherTabela ("SELECT * FROM USUARIO ORDER BY ID_USUARIO");
+         
+         
         
        }
        
     }//GEN-LAST:event_edtExcluirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void edtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtSenhaActionPerformed
+
+    private void edtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtEmailActionPerformed
+
+    private void edtTabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtTabelaUsuarioMouseClicked
+        // TODO add your handling code here:
+         String ID_USUARIO = ""+ edtTabelaUsuario.getValueAt(edtTabelaUsuario.getSelectedRow(), 1);
+          if (edtTabelaUsuario.getSelectedRow() != -1){
+        
+     edtCodigo.setText(edtTabelaUsuario.getValueAt(edtTabelaUsuario.getSelectedRow(), 0).toString());
+     edtNome.setText(edtTabelaUsuario.getValueAt(edtTabelaUsuario.getSelectedRow(), 1).toString());
+     edtEmail.setText(edtTabelaUsuario.getValueAt(edtTabelaUsuario.getSelectedRow(), 2).toString());
+     edtCpf.setText(edtTabelaUsuario.getValueAt(edtTabelaUsuario.getSelectedRow(), 3).toString());
+    
+    }
+    }//GEN-LAST:event_edtTabelaUsuarioMouseClicked
+public void preencherTabela (String Sql){
+    //Metodo para preencher a tabela de usuarios.
+    
+        ArrayList dados = new ArrayList();
+        String [] colunas = new String [] {"Codigo","Nome","Email","Cpf"};
+        conex.conexao();
+        conex.executaSql(Sql);
+        try{
+            conex.rs.first();
+            do{
+                dados.add(new Object[]{conex.rs.getInt("ID_USUARIO"),conex.rs.getString("NOME"),conex.rs.getString("EMAIL"),conex.rs.getString("CPF")});
+                
+            }while(conex.rs.next());
+                
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(rootPane,"Erro ao preencher o ArrayList"+ex);
+            }
+        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        edtTabelaUsuario.setModel(modelo);
+        edtTabelaUsuario.getColumnModel().getColumn(0).setPreferredWidth(200);
+        edtTabelaUsuario.getColumnModel().getColumn(0).setResizable(false);
+        
+        edtTabelaUsuario.getColumnModel().getColumn(1).setPreferredWidth(210);
+        edtTabelaUsuario.getColumnModel().getColumn(1).setResizable(false);
+        
+        edtTabelaUsuario.getColumnModel().getColumn(2).setPreferredWidth(210);
+        edtTabelaUsuario.getColumnModel().getColumn(2).setResizable(false);
+        
+        edtTabelaUsuario.getColumnModel().getColumn(3).setPreferredWidth(210);
+        edtTabelaUsuario.getColumnModel().getColumn(3).setResizable(false);
+        
+        //edtTabelaUsuario.getColumnModel().getColumn(4).setPreferredWidth(150);
+       // edtTabelaUsuario.getColumnModel().getColumn(4).setResizable(false);
+        
+        edtTabelaUsuario.getTableHeader().setReorderingAllowed(false);
+        edtTabelaUsuario.setAutoResizeMode(edtTabelaUsuario.AUTO_RESIZE_OFF);
+        edtTabelaUsuario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        conex.desconectar();
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -319,20 +432,23 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField edtCodigo;
-    private javax.swing.JButton edtConsultar;
     private javax.swing.JFormattedTextField edtCpf;
     private javax.swing.JTextField edtEmail;
     private javax.swing.JButton edtExcluir;
     private javax.swing.JTextField edtNome;
     private javax.swing.JButton edtSair;
     private javax.swing.JButton edtSalvar;
+    private javax.swing.JPasswordField edtSenha;
+    private javax.swing.JTable edtTabelaUsuario;
     private javax.swing.JButton edtaEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

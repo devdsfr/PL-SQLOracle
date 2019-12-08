@@ -14,14 +14,23 @@ public class Cliente {
     private int Id_vendas;
     private String Nome_ou_razao_social;
     private String SobreNome_ou_NomeFantasia;
-    private String Cpf_Cnpj;
+    private String Cpf;
+    private String Cnpj;
+    private String Nome;
+    private String Sobre_Nome;
 
-    public Cliente(int Id_cliente, int Id_vendas, String Nome_ou_razao_social, String SobreNome_ou_NomeFantasia, String Cpf_Cnpj) {
+
+
+    public Cliente(int Id_cliente, int Id_vendas, String Nome_ou_razao_social, String SobreNome_ou_NomeFantasia, String Cpf, String Cnpj,
+            String Nome, String Sobre_Nome) {
        this.Id_cliente = Id_cliente;
         this.Id_vendas = Id_vendas;
         this.Nome_ou_razao_social = Nome_ou_razao_social;
         this.SobreNome_ou_NomeFantasia = SobreNome_ou_NomeFantasia;
-        this.Cpf_Cnpj = Cpf_Cnpj;
+        this.Cpf = Cpf;
+        this.Cnpj = Cnpj;
+        this.Nome = Nome;
+        this.Sobre_Nome = Sobre_Nome;
     }
 
     public Cliente() {
@@ -58,14 +67,35 @@ public class Cliente {
         this.SobreNome_ou_NomeFantasia = SobreNome_ou_NomeFantasia;
     }
 
-    public String getCpf_Cnpj() {
-        return Cpf_Cnpj;
+    public String getCpf() {
+        return Cpf;
     }
 
-    public void setCpf_Cnpj(String Cpf_Cnpj) {
-        this.Cpf_Cnpj = Cpf_Cnpj;
+    public void setCpf(String Cpf) {
+        this.Cpf = Cpf;
     }
-    
-    
+     public String getCnpj() {
+        return Cnpj;
+    }
+
+    public void setCnpj(String Cnpj) {
+        this.Cnpj = Cnpj;
+    }
+       public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+
+    public String getSobre_Nome() {
+        return Sobre_Nome;
+    }
+
+    public void setSobre_Nome(String Sobre_Nome) {
+        this.Sobre_Nome = Sobre_Nome;
+    }
+
     
 }

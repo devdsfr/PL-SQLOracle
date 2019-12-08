@@ -28,14 +28,15 @@ public class UsuarioDao {
 }
 public boolean save(Usuario usuario){
              
-  String sql = "INSERT INTO USUARIO (NOME, EMAIL, CPF_CNPJ) VALUES (?, ?, ?)";
+  String sql = "INSERT INTO USUARIO (NOME, EMAIL, CPF, SENHA) VALUES (?, ?, ?, ?)";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, usuario.getUsuario());
             stmt.setString(2, usuario.getEmail());
-            stmt.setString(3, usuario.getCPF_CNPJ());
+            stmt.setString(3, usuario.getCPF());
+            stmt.setString(4, usuario.getSenha());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;
@@ -74,19 +75,21 @@ public boolean save(Usuario usuario){
     }
         return usuarios;
     }
-       public boolean update(Usuario usuario){
+       public boolean Editar (Usuario usua){
         
-        String sql = "UPDATE USUARIO SET NOME = ? WHERE id = ?";
+        String sql = "UPDATE USUARIO SET NOME =?, EMAIL=?, CPF=?, WHERE ID_USUARIO =?";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, usuario.getUsuario());
-            stmt.setString(2, usuario.getEmail());
+            stmt.setString(1, usua.getUsuario());
+            stmt.setString(2, usua.getEmail());
+            stmt.setString(2, usua.getCPF());
             stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Editado com sucesso!");
             return true;
         } catch (SQLException ex) {
-            System.err.println("Erro" +ex);
+            JOptionPane.showMessageDialog(null ,"Erro ao  Editar usuario." +ex);
             return false;
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
@@ -110,8 +113,10 @@ public boolean save(Usuario usuario){
             System.err.println("Erro" +ex);
             
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+           // ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
+    public void setID_USUARIO(int parseInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+}
 }

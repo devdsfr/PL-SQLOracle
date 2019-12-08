@@ -28,14 +28,17 @@ public class ClienteDao {
        }
          public boolean save(Cliente cliente){
              
-  String sql = "INSERT INTO CLIENTE (NOME_OU_RAZAO_SOCIAL, SOBRENOME_NOME_FANTASIA, CPF_CNPJ) VALUES (?, ?, ?)";
+  String sql = "INSERT INTO CLIENTE (NOME_OU_RAZAO_SOCIAL, SOBRENOME_NOME_FANTASIA, CPF, CNPJ, NOME, SOBRE_NOME) VALUES (?, ?, ?, ?, ?, ?)";
         
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, cliente.getNome_ou_razao_social());
             stmt.setString(2, cliente.getSobreNome_ou_NomeFantasia());
-            stmt.setString(3, cliente.getCpf_Cnpj());
+            stmt.setString(3, cliente.getCpf());
+            stmt.setString(4, cliente.getCnpj());
+            stmt.setString(5, cliente.getNome());
+            stmt.setString(6, cliente.getSobre_Nome());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
             return true;
@@ -83,7 +86,8 @@ public class ClienteDao {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, cliente.getNome_ou_razao_social());
             stmt.setString(2, cliente.getSobreNome_ou_NomeFantasia());
-            stmt.setString(2, cliente.getCpf_Cnpj());
+            stmt.setString(3, cliente.getCpf());
+            stmt.setString(4, cliente.getCnpj());
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -97,7 +101,7 @@ public class ClienteDao {
 
        public void delete(Cliente cli){
         
-        String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE =  ?";
+        String sql = "DELETE FROM CLIENTE WHERE ID_CLIENTE IN (?)";
         
         PreparedStatement stmt = null;
         try {
@@ -110,7 +114,7 @@ public class ClienteDao {
             System.err.println("Erro" +ex);
             
         }finally{
-            ConnectionFactory.closeConnection(con, stmt);
+            //ConnectionFactory.closeConnection(con, stmt);
         }
     }
     

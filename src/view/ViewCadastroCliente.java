@@ -58,14 +58,18 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         edtCNPJJ = new javax.swing.JFormattedTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        edtListaProduto = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        edtNome = new javax.swing.JTextField();
+        edtSobreNome = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         edtCancelar = new javax.swing.JButton();
         edtExcluir = new javax.swing.JButton();
         edtSalvar = new javax.swing.JButton();
         edtConsultar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        edtListaCliente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,7 +84,7 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 12, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -146,82 +150,89 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
             }
         });
 
-        edtListaProduto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        jLabel7.setText("Nome");
 
-            }
-        ));
-        jScrollPane1.setViewportView(edtListaProduto);
+        jLabel8.setText("Sobre Nome");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(botaoCPF)
-                .addGap(47, 47, 47)
-                .addComponent(botaoCNPJ)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(edtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(edtCpff, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(edtCNPJJ, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(168, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(edtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(56, 56, 56)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(edtCpff, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(edtSobreNome))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(edtCNPJJ, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(botaoCNPJ)
+                                .addGap(59, 59, 59)
+                                .addComponent(botaoCPF)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(edtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(edtSobreNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(edtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCPF)
-                    .addComponent(botaoCNPJ))
-                .addGap(40, 40, 40)
+                    .addComponent(botaoCNPJ)
+                    .addComponent(botaoCPF))
+                .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(edtCpff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(edtCNPJJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCNPJJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(edtCpff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(234, 234, 234))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -252,8 +263,7 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
             }
         });
 
-        edtConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
-        edtConsultar.setText("CONSULTAR");
+        edtConsultar.setText("EDITAR");
         edtConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtConsultarActionPerformed(evt);
@@ -290,8 +300,26 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
                 .addComponent(edtConsultar)
                 .addGap(18, 18, 18)
                 .addComponent(edtCancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
+
+        edtListaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        edtListaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                edtListaClienteMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(edtListaCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -299,26 +327,31 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 301, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -351,7 +384,10 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
         
         cliente.setNome_ou_razao_social(edtRazaoSocial.getText());
         cliente.setSobreNome_ou_NomeFantasia(edtNomeFantasia.getText());
-        cliente.setCpf_Cnpj(edtCpff.getText());
+        cliente.setNome(edtNome.getText());
+        cliente.setSobre_Nome(edtSobreNome.getText());
+        cliente.setCpf(edtCpff.getText());
+        cliente.setCnpj(edtCNPJJ.getText());
         clientes.save(cliente);
         
         //Metodo Limpar tela.
@@ -359,6 +395,11 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
         edtRazaoSocial.setText("");
         edtNomeFantasia.setText("");
         edtCpff.setText("");
+        edtCNPJJ.setText("");
+        edtNome.setText("");
+        edtSobreNome.setText("");
+        //Preenche a tabela automatico.
+        preencherTabela ("SELECT * FROM CLIENTE ORDER BY ID_CLIENTE");
     }//GEN-LAST:event_edtSalvarActionPerformed
 
     private void edtCodigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodigoClienteActionPerformed
@@ -372,11 +413,19 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
       cli.setId_cliente(Integer.parseInt(edtCodigoCliente.getText()));
       dao.delete(cli);
       
+      //Metodo para atualizar o campo de lista de clientes após deletar um cliente.
+      
+      preencherTabela ("SELECT * FROM CLIENTE ORDER BY ID_CLIENTE");
+      
       //Metodo limpar campos.
       edtCpff.setText("");
       edtNomeFantasia.setText("");
       edtRazaoSocial.setText("");
       edtCodigoCliente.setText("");
+      edtCNPJJ.setText("");
+      edtNome.setText("");
+      edtSobreNome.setText("");
+       
        }
     }//GEN-LAST:event_edtExcluirActionPerformed
 
@@ -407,14 +456,16 @@ public class ViewCadastroCliente extends javax.swing.JFrame {
     }
 
 public void preencherTabela (String Sql){
+    //Metodo para trazer os dados do banco de dados para a tabela cliente.
         ArrayList dados = new ArrayList();
-        String [] colunas = new String [] {"Codigo Cliente","Razão Social","Nome Fantasia","CPF"};
+        String [] colunas = new String [] {"Codigo","Razão Social","Nome Fantasia","CNPJ","Nome","Sobre Nome","CPF"};
         conex.conexao();
         conex.executaSql(Sql);
         try{
             conex.rs.first();
             do{
-                dados.add(new Object[]{conex.rs.getInt("ID_CLIENTE"),conex.rs.getString("NOME_OU_RAZAO_SOCIAL"),conex.rs.getString("SOBRENOME_NOME_FANTASIA"),conex.rs.getInt("CPF_CNPJ")});
+                dados.add(new Object[]{conex.rs.getInt("ID_CLIENTE"),conex.rs.getString("NOME_OU_RAZAO_SOCIAL"),conex.rs.getString("SOBRENOME_NOME_FANTASIA"),conex.rs.getString("CNPJ"),
+                conex.rs.getString("NOME"), conex.rs.getString("SOBRE_NOME"), conex.rs.getString("CPF")});
                 
             }while(conex.rs.next());
                 
@@ -422,22 +473,31 @@ public void preencherTabela (String Sql){
                 JOptionPane.showMessageDialog(rootPane,"Erro ao preencher o ArrayList"+ex);
             }
         ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        edtListaProduto.setModel(modelo);
-        edtListaProduto.getColumnModel().getColumn(0).setPreferredWidth(150);
-        edtListaProduto.getColumnModel().getColumn(0).setResizable(false);
+        edtListaCliente.setModel(modelo);
+        edtListaCliente.getColumnModel().getColumn(0).setPreferredWidth(60);
+        edtListaCliente.getColumnModel().getColumn(0).setResizable(false);
         
-        edtListaProduto.getColumnModel().getColumn(1).setPreferredWidth(200);
-        edtListaProduto.getColumnModel().getColumn(1).setResizable(false);
+        edtListaCliente.getColumnModel().getColumn(1).setPreferredWidth(150);
+        edtListaCliente.getColumnModel().getColumn(1).setResizable(false);
         
-        edtListaProduto.getColumnModel().getColumn(2).setPreferredWidth(200);
-        edtListaProduto.getColumnModel().getColumn(2).setResizable(false);
+        edtListaCliente.getColumnModel().getColumn(2).setPreferredWidth(130);
+        edtListaCliente.getColumnModel().getColumn(2).setResizable(false);
         
-        edtListaProduto.getColumnModel().getColumn(3).setPreferredWidth(200);
-        edtListaProduto.getColumnModel().getColumn(3).setResizable(false);
+        edtListaCliente.getColumnModel().getColumn(3).setPreferredWidth(130);
+        edtListaCliente.getColumnModel().getColumn(3).setResizable(false);
         
-        edtListaProduto.getTableHeader().setReorderingAllowed(false);
-        edtListaProduto.setAutoResizeMode(edtListaProduto.AUTO_RESIZE_OFF);
-        edtListaProduto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        edtListaCliente.getColumnModel().getColumn(4).setPreferredWidth(150);
+        edtListaCliente.getColumnModel().getColumn(4).setResizable(false);
+        
+        edtListaCliente.getColumnModel().getColumn(5).setPreferredWidth(150);
+        edtListaCliente.getColumnModel().getColumn(5).setResizable(false);
+        
+        edtListaCliente.getColumnModel().getColumn(6).setPreferredWidth(158);
+        edtListaCliente.getColumnModel().getColumn(6).setResizable(false);
+        
+        edtListaCliente.getTableHeader().setReorderingAllowed(false);
+        edtListaCliente.setAutoResizeMode(edtListaCliente.AUTO_RESIZE_OFF);
+        edtListaCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         conex.desconectar();
     }//GEN-LAST:event_edtCNPJJActionPerformed
@@ -445,6 +505,25 @@ public void preencherTabela (String Sql){
     private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtConsultarActionPerformed
+
+    private void edtListaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtListaClienteMouseClicked
+      //Metodo para selecionar os dados e prencher os campos.
+      
+       if (edtListaCliente.getSelectedRow() != -1){
+        
+     edtCodigoCliente.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 0).toString());
+     edtRazaoSocial.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 1).toString());
+     edtNomeFantasia.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 2).toString());
+     edtCNPJJ.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 3).toString());
+     
+     edtNome.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 4).toString());
+     edtSobreNome.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 5).toString());
+     edtCpff.setText(edtListaCliente.getValueAt(edtListaCliente.getSelectedRow(), 6).toString());
+      
+     //Metodo para atualizar a lista da tabela após salvar um cliente.
+      preencherTabela ("SELECT * FROM CLIENTE ORDER BY ID_CLIENTE");
+     }
+    }//GEN-LAST:event_edtListaClienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -495,16 +574,20 @@ public void preencherTabela (String Sql){
     private javax.swing.JButton edtConsultar;
     private javax.swing.JFormattedTextField edtCpff;
     private javax.swing.JButton edtExcluir;
-    private javax.swing.JTable edtListaProduto;
+    private javax.swing.JTable edtListaCliente;
+    private javax.swing.JTextField edtNome;
     private javax.swing.JTextField edtNomeFantasia;
     private javax.swing.JTextField edtRazaoSocial;
     private javax.swing.JButton edtSalvar;
+    private javax.swing.JTextField edtSobreNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

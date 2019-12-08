@@ -13,7 +13,10 @@ public class Usuario {
    private int ID_USUARIO;
    private String Usuario;
    private String Email;
-   private String CPF_CNPJ;
+   private String CPF;
+   private String Senha;
+  
+   
    
    public Usuario(){
        
@@ -22,11 +25,12 @@ public class Usuario {
        
    }
 
-    public Usuario(int Id_USUARIO, String Usuario, String Email, String CPF_CNPJ) {
+    public Usuario(int ID_USUARIO, String Usuario, String Email, String CPF, String Senha) {
         this.ID_USUARIO = ID_USUARIO;
         this.Usuario = Usuario;
         this.Email = Email;
-        this.CPF_CNPJ = CPF_CNPJ;
+        this.CPF = CPF;
+        this.Senha = Senha;
    
     }
 
@@ -34,7 +38,7 @@ public class Usuario {
         return ID_USUARIO;
     }
 
-    public void setID_USUARIO(int Id_usuario) {
+    public void setID_USUARIO(int ID_USUARIO) {
         this.ID_USUARIO = ID_USUARIO;
     }
 
@@ -54,15 +58,23 @@ public class Usuario {
         this.Email = Email;
     }
 
-    public String getCPF_CNPJ() {
-        return CPF_CNPJ;
+    public String getCPF() {
+        return CPF;
     }
 
-    public void setCPF_CNPJ(String CPF_CNPJ) {
-        this.CPF_CNPJ = CPF_CNPJ;
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
     }
-   public void add(Usuario usuario){
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public String getSenha() {
+        return Senha;
+    }
+
+    public void setSenha(String Senha) {
+        this.Senha = Senha;
+    }
     
-}
+   //public void add(Usuario usuario){
+    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+
 }

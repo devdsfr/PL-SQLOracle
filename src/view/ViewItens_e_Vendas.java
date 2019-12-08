@@ -9,7 +9,11 @@ import Dao.ItensDao;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import connection.ConexaoBD;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
 import model.Itens;
+import model.ModeloTabela;
 public class ViewItens_e_Vendas extends javax.swing.JFrame {
 
     ConexaoBD conex = new ConexaoBD();
@@ -18,6 +22,8 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
     int resposta =0;
     public ViewItens_e_Vendas() {
         initComponents();
+         preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
+         preencherTabela("SELECT * FROM VENDAS ORDER BY ID_VENDAS");
     }
 
     /**
@@ -50,6 +56,8 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
         etdCancelar = new javax.swing.JButton();
         edtConsultar = new javax.swing.JButton();
         edtExcluir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        edtLista = new javax.swing.JTable();
 
         jLabel1.setText("jLabel1");
 
@@ -151,8 +159,7 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
                             .addComponent(edtDesconItem, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtCodigoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(edtCodigoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -216,16 +223,33 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
                 .addContainerGap(143, Short.MAX_VALUE))
         );
 
+        edtLista.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(edtLista);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,7 +258,9 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -284,10 +310,41 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
     private void edtQTDVendidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtQTDVendidaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtQTDVendidaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+ public void preencherTabela (String Sql){
+        ArrayList dados = new ArrayList();
+        String [] colunas = new String [] {"Codigo","Descrição","Valor","Total"};
+        conex.conexao();
+        conex.executaSql(Sql);
+        try{
+            conex.rs.first();
+            do{
+                dados.add(new Object[]{conex.rs.getInt("ID_PRODUTO"),conex.rs.getString("DESCRICAO"),conex.rs.getDouble("VALOR"),conex.rs.getDouble("TOTAL")});
+                dados.add(new Object[]{conex.rs.getInt("ID_VENDAS"),conex.rs.getString("DESCRICAO"),conex.rs.getDouble("VALOR"),conex.rs.getDouble("TOTAL")});
+                
+            }while(conex.rs.next());
+                
+            }catch(SQLException ex){
+                JOptionPane.showMessageDialog(rootPane,"Erro ao preencher o ArrayList"+ex);
+            }
+        ModeloTabela modelo = new ModeloTabela(dados, colunas);
+        edtLista.setModel(modelo);
+        edtLista.getColumnModel().getColumn(0).setPreferredWidth(150);
+        edtLista.getColumnModel().getColumn(0).setResizable(false);
+        
+        edtLista.getColumnModel().getColumn(1).setPreferredWidth(160);
+        edtLista.getColumnModel().getColumn(1).setResizable(false);
+        
+        edtLista.getColumnModel().getColumn(2).setPreferredWidth(150);
+        edtLista.getColumnModel().getColumn(2).setResizable(false);
+        
+        edtLista.getColumnModel().getColumn(3).setPreferredWidth(150);
+        edtLista.getColumnModel().getColumn(3).setResizable(false);
+        
+        edtLista.getTableHeader().setReorderingAllowed(false);
+        edtLista.setAutoResizeMode(edtLista.AUTO_RESIZE_OFF);
+        edtLista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+ }
+ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -330,6 +387,7 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
     private javax.swing.JButton edtConsultar;
     private javax.swing.JTextField edtDesconItem;
     private javax.swing.JButton edtExcluir;
+    private javax.swing.JTable edtLista;
     private javax.swing.JTextField edtQTDVendida;
     private javax.swing.JButton edtSalvar;
     private javax.swing.JTextField edtTotalItens;
@@ -345,5 +403,6 @@ public class ViewItens_e_Vendas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

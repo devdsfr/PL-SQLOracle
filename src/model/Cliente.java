@@ -11,26 +11,25 @@ package model;
  */
 public class Cliente {
     private int Id_cliente;
-    private int Id_vendas;
     private String Nome_ou_razao_social;
     private String SobreNome_ou_NomeFantasia;
     private String Cpf;
     private String Cnpj;
     private String Nome;
     private String Sobre_Nome;
+    private String Pesquisa;
 
 
-
-    public Cliente(int Id_cliente, int Id_vendas, String Nome_ou_razao_social, String SobreNome_ou_NomeFantasia, String Cpf, String Cnpj,
-            String Nome, String Sobre_Nome) {
+    public Cliente(int Id_cliente,String Nome_ou_razao_social, String SobreNome_ou_NomeFantasia, String Cpf, String Cnpj,
+            String Nome, String Sobre_Nome, String Pesquisa) {
        this.Id_cliente = Id_cliente;
-        this.Id_vendas = Id_vendas;
         this.Nome_ou_razao_social = Nome_ou_razao_social;
         this.SobreNome_ou_NomeFantasia = SobreNome_ou_NomeFantasia;
         this.Cpf = Cpf;
         this.Cnpj = Cnpj;
         this.Nome = Nome;
         this.Sobre_Nome = Sobre_Nome;
+        this.Pesquisa = Pesquisa;
     }
 
     public Cliente() {
@@ -41,14 +40,6 @@ public class Cliente {
     }
     public void setId_cliente(int Id_cliente){
         this.Id_cliente = Id_cliente;
-    }
-
-    public int getId_vendas() {
-        return Id_vendas;
-    }
-
-    public void setId_vendas(int Id_vendas) {
-        this.Id_vendas = Id_vendas;
     }
 
     public String getNome_ou_razao_social() {
@@ -96,6 +87,12 @@ public class Cliente {
     public void setSobre_Nome(String Sobre_Nome) {
         this.Sobre_Nome = Sobre_Nome;
     }
+    public String getPesquisa() {
+        return Pesquisa;
+    }
 
+    public void setPesquisa(String Pesquisa) {
+        this.Pesquisa = Pesquisa;
+    }
     
 }

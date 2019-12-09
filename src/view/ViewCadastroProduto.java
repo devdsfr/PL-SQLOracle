@@ -24,15 +24,8 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     ConexaoBD conex = new ConexaoBD();
     BensProduto mod = new BensProduto();
     ProdutoDao dao = new ProdutoDao();
-   
-    
     int resposta =0;
 
-    private static void setModel(ModeloTabela tableModel) {
-      
-    }
-
-    //ModeloTabela TableModel = new ModeloTabela();
     private Connection stmt;
     private String sql;
     
@@ -63,7 +56,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
         edtSalvar = new javax.swing.JButton();
         edtEditar = new javax.swing.JButton();
         edtExcluir = new javax.swing.JButton();
-        edtCancelar = new javax.swing.JButton();
+        edtSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,11 +185,11 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        edtCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/sair-menu-2.png"))); // NOI18N
-        edtCancelar.setText("SAIR");
-        edtCancelar.addActionListener(new java.awt.event.ActionListener() {
+        edtSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/sair-menu-2.png"))); // NOI18N
+        edtSair.setText("SAIR");
+        edtSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCancelarActionPerformed(evt);
+                edtSairActionPerformed(evt);
             }
         });
 
@@ -210,7 +203,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
                     .addComponent(edtEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                     .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edtCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(edtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(61, 61, 61))
         );
         jPanel3Layout.setVerticalGroup(
@@ -223,7 +216,7 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(edtEditar)
                 .addGap(40, 40, 40)
-                .addComponent(edtCancelar)
+                .addComponent(edtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -272,9 +265,9 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
       preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");  
     }//GEN-LAST:event_edtEditarActionPerformed
 
-    private void edtCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCancelarActionPerformed
+    private void edtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSairActionPerformed
         this.dispose();
-    }//GEN-LAST:event_edtCancelarActionPerformed
+    }//GEN-LAST:event_edtSairActionPerformed
 
     private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
         //Metodo excluir dados.
@@ -419,12 +412,12 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton edtCancelar;
     private javax.swing.JTextField edtCodigo;
     private javax.swing.JTextField edtDescricao;
     private javax.swing.JButton edtEditar;
     private javax.swing.JButton edtExcluir;
     private javax.swing.JTable edtListaProduto;
+    private javax.swing.JButton edtSair;
     private javax.swing.JButton edtSalvar;
     private javax.swing.JTextField edtTotal;
     private javax.swing.JTextField edtValor;

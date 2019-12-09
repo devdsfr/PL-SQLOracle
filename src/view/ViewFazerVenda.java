@@ -10,22 +10,25 @@ import java.sql.Connection;
 import javax.swing.text.MaskFormatter;
 import Dao.VendasDao;
 import connection.ConexaoBD;
+import static java.awt.SystemColor.control;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import model.ModeloTabela;
 import model.Vendas;
+import model.Cliente;
 
-public class ViewVendas extends javax.swing.JFrame {
+public class ViewFazerVenda extends javax.swing.JFrame {
     ConexaoBD conex = new ConexaoBD();
     Vendas vd = new Vendas();
     VendasDao dao = new VendasDao();
-
-    /**
-     * Creates new form Vendas
-     */
-    public ViewVendas() {
+    Cliente cli = new Cliente();
+double totalBruto=0;
+    private Connection stmt;
+    private String sql;
+    
+    public ViewFazerVenda() {
         initComponents();
          preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
     }
@@ -50,7 +53,7 @@ public class ViewVendas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         edtCodigoVenda = new javax.swing.JTextField();
         edtCodigoCliente = new javax.swing.JTextField();
-        edtCodigoProduto = new javax.swing.JTextField();
+        edtCodigoProduto2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         edtTotalLiquido = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -59,15 +62,18 @@ public class ViewVendas extends javax.swing.JFrame {
         edtDesconto = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         edtDataVenda = new javax.swing.JFormattedTextField();
+        edtConsulta = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        edtCodigo = new javax.swing.JTextField();
+        edtCodigoProduto1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        edtDescricao = new javax.swing.JTable();
+        edtTabela = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         edtValor = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         edtTotal = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        edtDescricao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +105,11 @@ public class ViewVendas extends javax.swing.JFrame {
 
         edtConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/incons/loupe.png"))); // NOI18N
         edtConsultar.setText("CONSULTAR");
+        edtConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtConsultarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -106,11 +117,12 @@ public class ViewVendas extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(edtConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(edtSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(edtExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                        .addComponent(edtSair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(edtConsultar))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -122,32 +134,44 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addComponent(edtExcluir)
                 .addGap(18, 18, 18)
                 .addComponent(edtConsultar)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(edtSair)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FINALIZAR VENDA\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FINALIZAR VENDA\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 1, 14))); // NOI18N
 
-        jLabel1.setText("Codigo Vendas:");
+        jLabel1.setText("Codigo Vendas");
 
-        jLabel2.setText("Codigo Cliente:");
+        jLabel2.setText("Codigo Cliente");
 
-        jLabel3.setText("Codigo Produto:");
+        jLabel3.setText("Codigo Produto");
 
-        jLabel4.setText("Total Liquido:");
+        jLabel4.setText("Total Liquido");
 
-        jLabel5.setText("Valor da Venda:");
+        jLabel5.setText("Total Bruto");
 
-        jLabel6.setText("Desconto:");
+        jLabel6.setText("Desconto");
 
-        jLabel7.setText("Data da Venda:");
+        edtDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtDescontoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Data da Venda");
 
         try {
             edtDataVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        edtConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtConsultaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -160,33 +184,34 @@ public class ViewVendas extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(22, 22, 22)
                         .addComponent(edtCodigoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
                         .addComponent(edtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(edtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(edtCodigoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
+                                .addGap(36, 36, 36)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(edtTotalBruto)
                                     .addComponent(edtTotalLiquido))))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(edtDataVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                            .addComponent(edtDesconto))))
-                .addContainerGap(98, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(edtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +225,7 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(edtCodigoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtCodigoProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(edtDataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
@@ -212,22 +237,23 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(edtTotalLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(201, Short.MAX_VALUE))
+                    .addComponent(edtTotalLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("PRODUTO\n"));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PRODUTO\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP));
 
         jLabel8.setText("Codigo:");
 
-        edtCodigo.addActionListener(new java.awt.event.ActionListener() {
+        edtCodigoProduto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCodigoActionPerformed(evt);
+                edtCodigoProduto1ActionPerformed(evt);
             }
         });
 
-        edtDescricao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        edtDescricao.setModel(new javax.swing.table.DefaultTableModel(
+        edtTabela.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        edtTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -235,16 +261,18 @@ public class ViewVendas extends javax.swing.JFrame {
 
             }
         ));
-        edtDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
+        edtTabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                edtDescricaoMouseClicked(evt);
+                edtTabelaMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(edtDescricao);
+        jScrollPane1.setViewportView(edtTabela);
 
-        jLabel10.setText("Valor:");
+        jLabel10.setText("Valor");
 
-        jLabel11.setText("Total:");
+        jLabel11.setText("Quantidade");
+
+        jLabel9.setText("Descrição");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -254,19 +282,25 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(29, 29, 29)
-                        .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addGap(30, 30, 30)
-                .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(294, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                        .addGap(48, 48, 48)
+                        .addComponent(edtCodigoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtValor, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(edtDescricao))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,15 +308,17 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtCodigoProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(edtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(edtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -293,12 +329,12 @@ public class ViewVendas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 12, Short.MAX_VALUE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -306,14 +342,11 @@ public class ViewVendas extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -325,20 +358,20 @@ public class ViewVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_edtSairActionPerformed
 
     private void edtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSalvarActionPerformed
-        // Salvar od dados do Cliente.
-        Vendas venda = new Vendas();
-        VendasDao vendas = new VendasDao();
-        
-        venda.setTotal_Bruto(Double.parseDouble(edtTotalBruto.getText()));
-        venda.setDesconto(Double.parseDouble(edtDesconto.getText()));
-        venda.setTotal_Liquido(Double.parseDouble(edtTotalLiquido.getText()));
-        venda.setData_vendas(Date.valueOf(edtDataVenda.getText()));
-        vendas.save(venda);
+        //Metodo para salvar vendas.
+        vd.setId_Produto(Integer.parseInt(edtCodigoProduto2.getText()));
+        vd.setId_Cliente(Integer.parseInt(edtCodigoCliente.getText()));
+        vd.setTotal_Bruto(Double.parseDouble(edtTotalBruto.getText()));
+        vd.setDesconto(Double.parseDouble(edtDesconto.getText()));
+        vd.setTotal_Liquido(Double.parseDouble(edtTotalLiquido.getText()));
+        vd.setData_vendas(edtDataVenda.getText());
+        vd.setTotal_Liquido(Double.parseDouble(edtTotalLiquido.getText()));
+        dao.save(vd);
         
         //Metodo limpar tela.
         edtCodigoCliente.setText("");
         edtCodigoVenda.setText("");
-        edtCodigoProduto.setText("");
+        edtCodigoProduto2.setText("");
         edtTotalBruto.setText("");
         edtDesconto.setText("");
         edtTotalLiquido.setText("");
@@ -348,50 +381,18 @@ public class ViewVendas extends javax.swing.JFrame {
 
     private void edtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtExcluirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edtExcluirActionPerformed
-
-    private void edtDescricaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtDescricaoMouseClicked
-        //Metodo de selecionar os dados.
-        //String ID_PRODUTO = ""+ edtDescricao.getValueAt(edtDescricao.getSelectedRow(), 1);
-        //conex.conexao();
-        //conex.executaSql("SELECT * FROM  PRODUTO WHERE ID_PRODUTO='" + ID_PRODUTO + "'");
-        //try{
-            //conex.rs.first();
-            //edtCodigo.setText(String.valueOf(conex.rs.getInt("ID_PRODUTO")));
-            //edtDescricao.setText(conex.rs.getString("DESCRICAO"));
-            //edtValor.setText(String.valueOf(conex.rs.getDouble("VALOR")));
-            //  edtTotal.setText(String.valueOf(conex.rs.getDouble("TOTAL")));
-            //}catch(SQLException ex){
-            //  JOptionPane.showMessageDialog(null, "Erro ao selecionar os dados" +ex);
-            //}
-
-        //conex.desconectar();
-
-        // Metodo para selecionar produto dentro tabela produt para excluir.
-        //if (edtDescricao.getSelectedRow() != -1){
-
-            //edtCodigo.setText(edtDescricao.getValueAt(edtDescricao.getSelectedRow(), 0).toString());
-           // edtDescricao.setText(edtDescricao.getValueAt(edtDescricao.getSelectedRow(), 1).toString());
-            //edtValor.setText(edtDescricao.getValueAt(edtDescricao.getSelectedRow(), 2).toString());
-           // edtTotal.setText(edtDescricao.getValueAt(edtDescricao.getSelectedRow(), 3).toString());
-
-        //}
-        
-    }//GEN-LAST:event_edtDescricaoMouseClicked
-
-    private void edtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtCodigoActionPerformed
-
-   public void preencherTabela (String Sql){
+    }
+    
+    //Metodo para prencher tabela Produtos.
+        public void preencherTabela (String Sql){
         ArrayList dados = new ArrayList();
-        String [] colunas = new String [] {"Codigo","Descrição","Valor","Total"};
+        String [] colunas = new String [] {"Codigo","Descrição","Quantidade","Valor"};
         conex.conexao();
         conex.executaSql(Sql);
         try{
             conex.rs.first();
             do{
-                dados.add(new Object[]{conex.rs.getInt("ID_PRODUTO"),conex.rs.getString("DESCRICAO"),conex.rs.getDouble("VALOR"),conex.rs.getDouble("TOTAL")});
+                dados.add(new Object[]{conex.rs.getInt("ID_PRODUTO"),conex.rs.getString("DESCRICAO"),conex.rs.getDouble("TOTAL"),conex.rs.getDouble("VALOR")});
                 
             }while(conex.rs.next());
                 
@@ -399,25 +400,72 @@ public class ViewVendas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane,"Erro ao preencher o ArrayList"+ex);
             }
         ModeloTabela modelo = new ModeloTabela(dados, colunas);
-        edtDescricao.setModel(modelo);
-        edtDescricao.getColumnModel().getColumn(0).setPreferredWidth(150);
-        edtDescricao.getColumnModel().getColumn(0).setResizable(false);
+        edtTabela.setModel(modelo);
+        edtTabela.getColumnModel().getColumn(0).setPreferredWidth(202);
+        edtTabela.getColumnModel().getColumn(0).setResizable(false);
         
-        edtDescricao.getColumnModel().getColumn(1).setPreferredWidth(200);
-        edtDescricao.getColumnModel().getColumn(1).setResizable(false);
+        edtTabela.getColumnModel().getColumn(1).setPreferredWidth(202);
+        edtTabela.getColumnModel().getColumn(1).setResizable(false);
         
-        edtDescricao.getColumnModel().getColumn(2).setPreferredWidth(200);
-        edtDescricao.getColumnModel().getColumn(2).setResizable(false);
+        edtTabela.getColumnModel().getColumn(2).setPreferredWidth(202);
+        edtTabela.getColumnModel().getColumn(2).setResizable(false);
         
-         edtDescricao.getColumnModel().getColumn(3).setPreferredWidth(200);
-         edtDescricao.getColumnModel().getColumn(3).setResizable(false);
+        edtTabela.getColumnModel().getColumn(3).setPreferredWidth(202);
+        edtTabela.getColumnModel().getColumn(3).setResizable(false);
         
-         //edtDescricao.getTableHeader().setReorderingAllowed(false);
-         //edtDescricao.setAutoResizeMode(edtDescricao.AUTO_RESIZE_OFF);
-        //edtDescricao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        edtTabela.getTableHeader().setReorderingAllowed(false);
+        edtTabela.setAutoResizeMode(edtTabela.AUTO_RESIZE_OFF);
+        edtTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         conex.desconectar();
-    }                                        
+    }//GEN-LAST:event_edtExcluirActionPerformed
+
+    private void edtTabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtTabelaMouseClicked
+       //Metodo MouseCliked da Tabela Produto.
+         if (edtTabela.getSelectedRow() != -1){
+        
+     edtCodigoProduto1.setText(edtTabela.getValueAt(edtTabela.getSelectedRow(), 0).toString());
+     edtCodigoProduto2.setText(edtTabela.getValueAt(edtTabela.getSelectedRow(), 0).toString());
+     edtDescricao.setText(edtTabela.getValueAt(edtTabela.getSelectedRow(), 1).toString());
+     edtValor.setText(edtTabela.getValueAt(edtTabela.getSelectedRow(), 2).toString());
+     edtTotal.setText(edtTabela.getValueAt(edtTabela.getSelectedRow(), 3).toString());
+     edtTotalBruto.setText(edtTabela.getValueAt(edtTabela.getSelectedRow(), 3).toString());
+     
+   
+    preencherTabela ("SELECT * FROM PRODUTO ORDER BY ID_PRODUTO");
+         }
+    
+    }//GEN-LAST:event_edtTabelaMouseClicked
+
+    private void edtCodigoProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodigoProduto1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtCodigoProduto1ActionPerformed
+
+    private void edtConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultarActionPerformed
+       
+       //cli.setPesquisa(edtConsulta.getText());
+      // Cliente mod = control.buscarCliente(mod);
+       
+    }//GEN-LAST:event_edtConsultarActionPerformed
+
+    private void edtConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtConsultaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_edtConsultaActionPerformed
+
+    private void edtDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtDescontoActionPerformed
+        // Metodo para desconto.
+       totalBruto = (float) (totalBruto = Double.parseDouble(edtTotalBruto.getText()) -
+               Integer.parseInt(edtDesconto.getText()));
+       
+       double totalBruto;
+       
+       totalBruto = (Double.parseDouble(edtTotalBruto.getText())-(Double.parseDouble(edtDesconto.getText(String.valueOf(totalBruto));
+       
+    }//GEN-LAST:event_edtDescontoActionPerformed
+
+   
+                                            
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -445,23 +493,25 @@ public class ViewVendas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Vendas().setVisible(true);
+                new ViewFazerVenda().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField edtCodigo;
     private javax.swing.JTextField edtCodigoCliente;
-    private javax.swing.JTextField edtCodigoProduto;
+    private javax.swing.JTextField edtCodigoProduto1;
+    private javax.swing.JTextField edtCodigoProduto2;
     private javax.swing.JTextField edtCodigoVenda;
+    private javax.swing.JTextField edtConsulta;
     private javax.swing.JButton edtConsultar;
     private javax.swing.JFormattedTextField edtDataVenda;
     private javax.swing.JTextField edtDesconto;
-    private javax.swing.JTable edtDescricao;
+    private javax.swing.JTextField edtDescricao;
     private javax.swing.JButton edtExcluir;
     private javax.swing.JButton edtSair;
     private javax.swing.JButton edtSalvar;
+    private javax.swing.JTable edtTabela;
     private javax.swing.JTextField edtTotal;
     private javax.swing.JTextField edtTotalBruto;
     private javax.swing.JTextField edtTotalLiquido;
@@ -476,6 +526,7 @@ public class ViewVendas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

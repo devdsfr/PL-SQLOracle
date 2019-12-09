@@ -249,7 +249,7 @@
                       <Component id="edtEditar" alignment="0" max="32767" attributes="0"/>
                       <Component id="edtExcluir" alignment="0" pref="133" max="32767" attributes="0"/>
                       <Component id="edtSalvar" alignment="0" max="32767" attributes="0"/>
-                      <Component id="edtCancelar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="edtSair" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               </Group>
@@ -265,7 +265,7 @@
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="edtEditar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="edtCancelar" min="-2" max="-2" attributes="0"/>
+                  <Component id="edtSair" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -303,7 +303,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtExcluirActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="edtCancelar">
+        <Component class="javax.swing.JButton" name="edtSair">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/incons/sair-menu-2.png"/>
@@ -311,7 +311,7 @@
             <Property name="text" type="java.lang.String" value="SAIR"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtCancelarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtSairActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

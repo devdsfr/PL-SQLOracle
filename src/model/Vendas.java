@@ -12,19 +12,23 @@ import java.sql.Date;
  * @author thiago
  */
 public class Vendas {
-    
+
     private int Id_Vendas;
-    private Date data_vendas;
-    private int Id_produto;
+    private String data_vendas;
+    private int Id_Produto;
+    private int Id_Cliente;
+    private int CodigoCli;
     private double Total_Bruto;
     private double Desconto;
     private double Total_Liquido;
     private String CPF_CNPJ;
 
-    public Vendas(int Id_Vendas, Date data_vendas, int Id_produto, double Total_Bruto, double Desconto, double Total_Liquido, String CPF_CNPJ) {
+    public Vendas(int Id_Vendas, String data_vendas, int Id_Produto, int Id_Cliente, int CodigoCli, double Total_Bruto, double Desconto, double Total_Liquido, String CPF_CNPJ) {
         this.Id_Vendas = Id_Vendas;
         this.data_vendas = data_vendas;
-        this.Id_produto = Id_produto;
+        this.Id_Produto = Id_Produto;
+        this.Id_Cliente = Id_Cliente;
+        this.CodigoCli = CodigoCli;
         this.Total_Bruto = Total_Bruto;
         this.Desconto = Desconto;
         this.Total_Liquido = Total_Liquido;
@@ -32,10 +36,10 @@ public class Vendas {
     }
 
     public Vendas() {
-       
+
     }
-    public void Vendas(){
-        
+
+    public void Vendas() {
     }
 
     public int getId_Vendas() {
@@ -46,20 +50,35 @@ public class Vendas {
         this.Id_Vendas = Id_Vendas;
     }
 
-    public Date getData_vendas() {
+    public String getData_vendas() {
         return data_vendas;
     }
 
-    public void setData_vendas(Date data_vendas) {
+    public void setData_vendas(String data_vendas) {
         this.data_vendas = data_vendas;
     }
 
-    public int getId_produto() {
-        return Id_produto;
+    public int getId_Produto() {
+        return Id_Produto;
     }
 
-    public void setId_produto(int Id_produto) {
-        this.Id_produto = Id_produto;
+    public void setId_Produto(int Id_Produto) {
+        this.Id_Produto = Id_Produto;
+    }
+
+    public int getId_Cliente() {
+        return Id_Cliente;
+    }
+
+    public void setId_Cliente(int Id_Cliente) {
+        this.Id_Cliente = Id_Cliente;
+    }
+     public int getCodigoCli() {
+        return CodigoCli;
+    }
+
+    public void setCodigoCli(int CodigoCli) {
+        this.CodigoCli = CodigoCli;
     }
 
     public double getTotal_Bruto() {
@@ -95,13 +114,6 @@ public class Vendas {
     }
 
     public void add(Vendas vendas) {
-       
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public void setVisible(boolean b) {
-       
-    }
-    
-    
-    
 }
